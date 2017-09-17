@@ -1,0 +1,4 @@
+
+-- 샘플 데이터
+INSERT INTO MEMBER
+VALUES('456','456','KIM','456@GMAIL',3);
