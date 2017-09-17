@@ -11,11 +11,11 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CrawlingDao {
-    private static final Logger logger = LoggerFactory.getLogger(CrawlingDao.class);
+public class CrawlingUtil {
+    private static final Logger logger = LoggerFactory.getLogger(CrawlingUtil.class);
 	
     //html문서를 받아온다
-	public Document getDocument(String url) throws IOException {
+	public Elements getElements(String url, String CSSSelect) throws IOException {
 		
 		Document document = Jsoup.connect(url)
 				.header("Accept", 
@@ -29,19 +29,16 @@ public class CrawlingDao {
 				.get();
 
 		logger.info("setDocument");
-		return document;
-	}
-
-	//Doc문서로 메인 Elements를 추출한다
-	public Elements getMainElements(Document document, String CSSSelect) {		
+		
 		Elements extractElements = document.select(CSSSelect);
+		
 		logger.info("setElements");
 		
 		return extractElements;
 	}
 	
 	//받아온 문서를 이용해 a href데이터를 추출한다
-	public List<String> hrefCrawling(Elements elements, String CSSSelect) throws IOException {
+	public List<String> attrHrefCrawling(Elements elements, String CSSSelect) throws IOException {
 		List<String> list = new ArrayList<>();
 
 		for (Element ahrefEl : elements) {
