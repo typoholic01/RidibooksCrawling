@@ -16,6 +16,10 @@ CASCADE;
 --조회용
 SELECT * FROM ridibooks 
 
+SELECT category, link, cover, title, author, star, starredPerson
+		FROM RIDIBOOKS
+		ORDER BY starredPerson ASC;
+
 SELECT * FROM ridibooks 
 where starredPerson > 9 order by star desc;
 

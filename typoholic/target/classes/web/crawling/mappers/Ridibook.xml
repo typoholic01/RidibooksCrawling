@@ -9,6 +9,18 @@
 		FROM RIDIBOOKS
 	</select>
 	
+	<!-- SortingTable -->
+	<select id="getRidibookListOrderByStarredPersonASC" resultType="web.crawling.vo.Ridibook">
+		SELECT category, link, cover, title, author, star, starredPerson
+		FROM RIDIBOOKS
+		ORDER BY starredPerson DESC;
+	</select>	
+	<select id="getRidibookListOrderByStarredPersonDESC" resultType="web.crawling.vo.Ridibook">
+		SELECT category, link, cover, title, author, star, starredPerson
+		FROM RIDIBOOKS
+		ORDER BY starredPerson ASC;
+	</select>
+	
 	<insert id="insertRidibook" parameterType="web.crawling.vo.Ridibook">
 		INSERT INTO RIDIBOOKS(category, link, cover, title, author, star, starredPerson)
 		VALUES(#{category}, #{link}, #{cover}, #{title}, #{author}, #{star}, #{starredPerson})		

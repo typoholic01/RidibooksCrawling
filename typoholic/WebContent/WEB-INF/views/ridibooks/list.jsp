@@ -9,11 +9,24 @@
 <!-- Java Script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath }/js/Sorting.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath }/js/SortTable.js" type="text/javascript"></script>
 
 <!-- CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+<!-- AJAX -->
+<script type="text/javascript">
+function sortTable(n) {
+	$.ajax({
+		type: 'PUT',
+		url: './',
+		async: false, 
+		success: function(data) {
+			console.log(data);
+			}
+	})
+}
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>

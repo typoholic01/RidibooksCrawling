@@ -1,6 +1,5 @@
 package web.crawling.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -11,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import web.crawling.dao.RidibookDao;
-import web.crawling.jsoup.Crawling;
 import web.crawling.vo.Ridibook;
 
 @Controller
@@ -34,6 +33,17 @@ public class RidibookController {
 		model.addAttribute("list", list);
 		
 		return "ridibooks/list";
+	}
+	
+	@RequestMapping(value="/ridibooks/",method=RequestMethod.PUT)
+	public @ResponseBody List<Ridibook> ridibooksPut() {
+		logger.info("ridibooksPut");
+		
+		RidibookDao dao = session.getMapper(RidibookDao.class);
+		
+		List<Ridibook> list = dao.getRidibookListOrderByStarredPersonDESC();
+		
+		return list;
 	}
 	
 //	@RequestMapping(value="/ridibooks/crawling/",method=RequestMethod.GET)

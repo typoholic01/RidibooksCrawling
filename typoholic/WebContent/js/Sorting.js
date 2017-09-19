@@ -6,20 +6,29 @@ function loadJQuery() {
     document.getElementsByTagName("head")[0].appendChild(oScript);
 }
 
-
 function sortTable(n) {
-	var rows, values;
-	
+	var rows, direction;
+	console.log(direction);
+	if (direction == null) {
+		direction = "asc";
+	}
 	//배열 rows를 준비한다
     rows = $("#sortTable > tbody > tr");
     
     //정렬한다
-//    ascendingSort(rows, n, 0, rows.length - 1);
+    if (direction == "asc") {
+        ascendingSort(rows, n, 0, (rows.length - 1));
+        direction = "desc";
+	}
     
-    //스와핑 테스트
-	var values = rows.children("td:nth-child("+(n+1)+")");
-    var pivot = values[0];
-    console.log(pivot);
+    //스왑 테스트
+//	var values = $("#sortTable > tbody > tr > td:nth-child("+(n+1)+")");
+//    var pivot = values[0].textContent;
+//    console.log(pivot);
+//    var i = 0;
+//    var j = 2;
+//    rows[i].before(rows[j]);
+//    rows[j+1].before(rows[i]);
 	
 }
 
@@ -28,24 +37,23 @@ function ascendingPartition(rows, n, left, right) {
 	var i = left;
 	var j = right;
 	var values = rows.children("td:nth-child("+(n+1)+")");
-	var pivot = values[(i+j)/2].text();
-	
+	var pivot = values[Math.floor((i+j)/2)].textContent;	
 	
 	//i부터 j까지 정렬한다
 	while (i <= j) {
 		
 		//arr[i]가 pivot보다 작으면 skip한다
-		while (values[i].text() < pivot) {
+		while (values[i].textContent < pivot) {
 			i++;
 		}
 		
 		//arr[j]가 pivot보다 크면 skip한다
-		while (pivot < values[j].text()) {
+		while (pivot < values[j].textContent) {
 			j--;
 		}
 		
 		//pivot보다 큰 arr[i]가 존재하고 pivot보다 작은 arr[j]가 존재하며 그 둘이 pivot을 사이에 두고 정대칭일때
-		if (i <= j) {
+		if (i <= j) {			
 			//순서이동
 		    rows[i].before(rows[j]);
 		    rows[j+1].before(rows[i]);
