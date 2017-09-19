@@ -25,6 +25,8 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+  
+  <!-- utf8 -->
   <filter>
     <filter-name>encodingFilter</filter-name>
     <filter-class>

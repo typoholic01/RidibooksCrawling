@@ -1,31 +1,23 @@
-package web.crawling.model;
+package web.crawling.vo;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 public class Ridibook implements Serializable {
 	private static final long serialVersionUID = -4572117714450559088L;
 	
 	private String category;
-	private int rank;
+	private String link;
 	private String cover;
 	private String title;
 	private String author;
 	private double star;
 	private int starredPerson;
-	private String link;
 	
 	public String getCategory() {
 		return category;
 	}
 	public void setCategory(String category) {
 		this.category = category;
-	}
-	public int getRank() {
-		return rank;
-	}
-	public void setRank(int rank) {
-		this.rank = rank;
 	}
 	public String getCover() {
 		return cover;
@@ -66,8 +58,8 @@ public class Ridibook implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Ridibook [category=" + category + ", rank=" + rank + ", cover=" + cover + ", title=" + title
-				+ ", author=" + author + ", star=" + star + ", starredPerson=" + starredPerson + ", link=" + link + "]";
-	}
-
+		return "Ridibook [category=" + category + ", link=" + link + ", cover=" + cover + ", title=" + title
+				+ ", author=" + author + ", star=" + star + ", starredPerson=" + starredPerson + "]";
+	}	
+	
 }

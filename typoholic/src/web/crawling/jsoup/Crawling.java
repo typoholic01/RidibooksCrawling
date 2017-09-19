@@ -8,7 +8,7 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import web.crawling.model.Ridibook;
+import web.crawling.vo.Ridibook;
 
 public class Crawling {
 	private static final Logger logger = LoggerFactory.getLogger(Crawling.class);
@@ -31,10 +31,8 @@ public class Crawling {
 		//변수 준비
 		double star = -1;
 		int starredPerson = 0;
-		int rank = 1;
 		
 		//페이지 번호에 맞춰 랭크 Fixed
-		rank = setRank(page);
 				
 		//crawling		
 		mainElements = util.getElements(url, 
@@ -75,7 +73,6 @@ public class Crawling {
 			
 			Ridibook dto = new Ridibook();
 			dto.setCategory(category);
-			dto.setRank(rank);
 			dto.setCover(coverList.get(i));
 			dto.setTitle(titleList.get(i));
 			dto.setAuthor(authorList.get(i));
@@ -83,41 +80,9 @@ public class Crawling {
 			dto.setStarredPerson(starredPerson);
 			dto.setLink(linkList.get(i));
 			
-			rank++;
 			bookList.add(dto);
 		}
 		return bookList;
 	}
 	
-	private int setRank(int page) {
-		int rank = 1;
-		
-		switch (page) {
-		case 1:
-			rank = 1;
-			break;
-		case 2:
-			rank = 31;
-			break;
-		case 3:
-			rank = 61;
-			break;
-		case 4:
-			rank = 91;
-			break;
-		case 5:
-			rank = 121;
-			break;
-		case 6:
-			rank = 151;
-			break;
-		case 7:
-			rank = 181;
-			break;
-		default:
-			break;
-		}
-		return rank;
-	}
-
 }
