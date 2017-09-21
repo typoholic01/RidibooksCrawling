@@ -17,14 +17,26 @@
 <!-- AJAX -->
 <script type="text/javascript">
 function sortTable(n) {
+	var jsonData;
+	
 	$.ajax({
-		type: 'PUT',
-		url: './',
-		async: false, 
+		type: 'GET',
+		url: './json/',
+		async: true, 
 		success: function(data) {
-			console.log(data);
-			}
-	})
+			$.each(data, function(index, item) {
+ 				$('tbody > tr:nth-child('+index+') > td:nth-child(1) > img').attr('src',data[index].cover);
+ 				$('tbody > tr:nth-child('+index+') > td:nth-child(2)').text(data[index].category);
+ 				$('tbody > tr:nth-child('+index+') > td:nth-child(3)').text(data[index].star);
+ 				$('tbody > tr:nth-child('+index+') > td:nth-child(4)').text(data[index].starredPerson);
+ 				$('tbody > tr:nth-child('+index+') > td:nth-child(5) > a').attr('href','https://ridibooks.com'+data[index].link);
+ 				$('tbody > tr:nth-child('+index+') > td:nth-child(5) > a').text(data[index].title);
+ 				$('tbody > tr:nth-child('+index+') > td:nth-child(6)').text(data[index].author);
+			});
+		}
+	});
+
+	$('tbody > tr').repla
 }
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

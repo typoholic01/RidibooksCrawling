@@ -4,11 +4,8 @@ import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.List;
 
 import java.sql.Connection;
-
-import web.crawling.vo.Ridibook;
 
 public class MainClass {
 

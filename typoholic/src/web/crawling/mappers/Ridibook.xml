@@ -13,12 +13,12 @@
 	<select id="getRidibookListOrderByStarredPersonASC" resultType="web.crawling.vo.Ridibook">
 		SELECT category, link, cover, title, author, star, starredPerson
 		FROM RIDIBOOKS
-		ORDER BY starredPerson DESC;
+		ORDER BY starredPerson ASC;
 	</select>	
 	<select id="getRidibookListOrderByStarredPersonDESC" resultType="web.crawling.vo.Ridibook">
 		SELECT category, link, cover, title, author, star, starredPerson
 		FROM RIDIBOOKS
-		ORDER BY starredPerson ASC;
+		ORDER BY starredPerson DESC;
 	</select>
 	
 	<insert id="insertRidibook" parameterType="web.crawling.vo.Ridibook">

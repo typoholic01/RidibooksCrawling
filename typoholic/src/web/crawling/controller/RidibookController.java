@@ -35,7 +35,7 @@ public class RidibookController {
 		return "ridibooks/list";
 	}
 	
-	@RequestMapping(value="/ridibooks/",method=RequestMethod.PUT)
+	@RequestMapping(value="/ridibooks/json/",method=RequestMethod.GET)
 	public @ResponseBody List<Ridibook> ridibooksPut() {
 		logger.info("ridibooksPut");
 		
