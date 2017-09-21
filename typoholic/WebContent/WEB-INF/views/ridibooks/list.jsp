@@ -16,12 +16,18 @@
 
 <!-- AJAX -->
 <script type="text/javascript">
-function sortTable(n) {
-	var jsonData;
+function sortTable(column) {
+	var jsonData = {};
+	console.log(column);
+	jsonData.queryType = column;
 	
 	$.ajax({
 		type: 'GET',
 		url: './json/',
+		data: {
+			"queryType" : column,
+			"direction" : "desc"
+		},		
 		async: true, 
 		success: function(data) {
 			$.each(data, function(index, item) {
@@ -35,8 +41,6 @@ function sortTable(n) {
 			});
 		}
 	});
-
-	$('tbody > tr').repla
 }
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -49,11 +53,11 @@ function sortTable(n) {
 		<thead>
 			<tr>
 				<th>cover</th>
-				<th onclick="sortTable(1)">분류</th>
-				<th onclick="sortTable(2)">star</th>
-				<th onclick="sortTable(3)">starred</th>
-				<th onclick="sortTable(4)">title</th>
-				<th onclick="sortTable(5)">author</th>
+				<th onclick="sortTable('category')">분류</th>
+				<th onclick="sortTable('star')">star</th>
+				<th onclick="sortTable('starredPerson')">starred</th>
+				<th onclick="sortTable('title')">title</th>
+				<th onclick="sortTable('author')">author</th>
 			</tr>
 		</thead>
 		<tbody>
