@@ -30,16 +30,15 @@ function sortTable(column) {
 		async: true, 
 		success: function(data) {
 			$.each(data, function(index, item) {
- 				$('tbody > tr:nth-child('+index+') > td:nth-child(1) > img').attr('src',data[index].cover);
- 				$('tbody > tr:nth-child('+index+') > td:nth-child(2)').text(data[index].category);
- 				$('tbody > tr:nth-child('+index+') > td:nth-child(3)').text(data[index].star);
- 				$('tbody > tr:nth-child('+index+') > td:nth-child(4)').text(data[index].starredPerson);
- 				$('tbody > tr:nth-child('+index+') > td:nth-child(5) > a').attr('href','https://ridibooks.com'+data[index].link);
- 				$('tbody > tr:nth-child('+index+') > td:nth-child(5) > a').text(data[index].title);
- 				$('tbody > tr:nth-child('+index+') > td:nth-child(6)').text(data[index].author);
+ 				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(1) > img').attr('src',data[index].cover);
+ 				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(2)').text(data[index].category);
+ 				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(3)').text(data[index].clap);
+ 				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(4) > a').attr('href','https://ridibooks.com'+data[index].link);
+ 				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(4) > a').text(data[index].title);
+ 				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(5)').text(data[index].author);
 			});
 			
-			//방향전
+			//방향전환
 			if (direction == "desc") {
 				$("#direction").val("asc");				
 			} else {
@@ -53,7 +52,7 @@ function sortTable(column) {
 <title>Insert title here</title>
 </head>
 <body>
-<input id="direction" type="hidden" value="desc">
+<input id="direction" type="hidden" value="asc">
 <div class="container-fluid">
 	<div class="table-responsive">          
 		<table id="sortTable" class="table">
@@ -61,8 +60,7 @@ function sortTable(column) {
 			<tr>
 				<th>cover</th>
 				<th onclick="sortTable('category')">분류</th>
-				<th onclick="sortTable('star')">star</th>
-				<th onclick="sortTable('starredPerson')">starred</th>
+				<th onclick="sortTable('clap')">clap</th>
 				<th onclick="sortTable('title')">title</th>
 				<th onclick="sortTable('author')">author</th>
 			</tr>
@@ -73,8 +71,7 @@ function sortTable(column) {
 			<tr>
 				<td><img src="http://${ridibook.cover }" alt="" /></td>
 				<td>${ridibook.category }</td>
-				<td>${ridibook.star }</td>
-				<td>${ridibook.starredPerson }</td>
+				<td>${ridibook.clap }</td>
 				<td><a href="https://ridibooks.com${ridibook.link }">${ridibook.title }</a></td>
 				<td>${ridibook.author }</td>
 			</tr>

@@ -1,5 +1,6 @@
 package web.crawling.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -14,22 +15,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import web.crawling.dao.RidibookDao;
+import web.crawling.jsoup.Crawling;
 import web.crawling.vo.Ridibook;
 
 @Controller
 public class RidibookController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);	
-	
+		
 	@Autowired
-	SqlSession session;
+	SqlSession session;	
 	
 	@RequestMapping(value="/ridibooks/",method=RequestMethod.GET)
 	public String ridibooks(Model model) {
 		logger.info("ridibooks");
-		
 		RidibookDao dao = session.getMapper(RidibookDao.class);
 		
-		List<Ridibook> list = dao.getRidibookList();
+		List<Ridibook> list = dao.getRidibookListOrderByClapDESC();
 		
 		model.addAttribute("list", list);
 		
@@ -40,44 +41,47 @@ public class RidibookController {
 	public @ResponseBody List<Ridibook> ridibooksPut(@RequestParam("queryType") String queryType, @RequestParam("direction") String direction) {
 		logger.info("ridibooksPut");
 		logger.info("queryType: {} \t\t direction: {}",queryType,direction);
+		RidibookDao dao = session.getMapper(RidibookDao.class);
 		
 		//init
 		List<Ridibook> list = null;
-		RidibookDao dao;
 		
 		dao = session.getMapper(RidibookDao.class);
 		
 		if (direction.equals("desc")) {
 			if (queryType.equals("star"))
 				list = null;
-			else if (queryType.equals("starredPerson"))
-				list = dao.getRidibookListOrderByStarredPersonDESC();
+			else if (queryType.equals("clap"))
+				list = dao.getRidibookListOrderByClapDESC();
 		} else {
 			if (queryType.equals("star"))
 				list = null;
-			else if (queryType.equals("starredPerson"))
-				list = dao.getRidibookListOrderByStarredPersonASC();	
+			else if (queryType.equals("clap"))
+				list = dao.getRidibookListOrderByClapASC();	
 		}		
 		
 		return list;
 	}
 	
-//	@RequestMapping(value="/ridibooks/crawling/",method=RequestMethod.GET)
-//	public String crawling(Model model) throws IOException {
-//		logger.info("crawling");
-//		
-//		RidibookDao dao = session.getMapper(RidibookDao.class);
-//		Crawling ctrl = new Crawling();
-//
-//		for (int i = 1; i < 8; i++) {
-//			List<Ridibook> list = ctrl.getRidibookFantasyList(i);
-//			
-//			for (Ridibook ridibook : list) {
-//				dao.insertRidibook(ridibook);
-//			}
-//		}
-//		
-//		return "ridibooks/list";
-//	}
+	@RequestMapping(value="/ridibooks/crawling/",method=RequestMethod.POST)
+	public String crawling(Model model) throws IOException {
+		logger.info("crawling");
+		RidibookDao dao = session.getMapper(RidibookDao.class);
+		Crawling ctrl = new Crawling();
+
+		for (int i = 1; i < 8; i++) {
+			List<Ridibook> list = ctrl.getRidibookFantasyList(i);
+			
+			for (Ridibook ridibook : list) {
+				try {
+					dao.insertRidibook(ridibook);					
+				} catch (Exception e) {
+					logger.error(e.getMessage());
+				}
+			}
+		}
+		
+		return "ridibooks/list";
+	}
 
 }

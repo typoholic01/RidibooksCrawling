@@ -12,7 +12,14 @@ public class Ridibook implements Serializable {
 	private String author;
 	private double star;
 	private int starredPerson;
+	private int clap;
 	
+	public int getClap() {
+		return clap;
+	}
+	public void setClap(int clap) {
+		this.clap = clap;
+	}
 	public String getCategory() {
 		return category;
 	}
@@ -59,7 +66,9 @@ public class Ridibook implements Serializable {
 	@Override
 	public String toString() {
 		return "Ridibook [category=" + category + ", link=" + link + ", cover=" + cover + ", title=" + title
-				+ ", author=" + author + ", star=" + star + ", starredPerson=" + starredPerson + "]";
-	}	
+				+ ", author=" + author + ", star=" + star + ", starredPerson=" + starredPerson + ", clap=" + clap + "]";
+	}
+	
+	
 	
 }

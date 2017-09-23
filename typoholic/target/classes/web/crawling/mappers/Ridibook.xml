@@ -3,23 +3,18 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
 <mapper namespace="web.crawling.dao.RidibookDao">
-
-	<select id="getRidibookList" resultType="Ridibook">
-		SELECT category, link, cover, title, author, star, starredPerson
-		FROM RIDIBOOKS
-	</select>
 	
 	<!-- SortingTable -->
-	<select id="getRidibookListOrderByStarredPersonASC" resultType="Ridibook">
-		SELECT category, link, cover, title, author, star, starredPerson
+	<select id="getRidibookListOrderByClapDESC" resultType="Ridibook">
+		SELECT category, link, cover, title, author, star * starredPerson "clap"
 		FROM RIDIBOOKS
-		ORDER BY starredPerson ASC;
-	</select>	
-	<select id="getRidibookListOrderByStarredPersonDESC" resultType="Ridibook">
-		SELECT category, link, cover, title, author, star, starredPerson
-		FROM RIDIBOOKS
-		ORDER BY starredPerson DESC;
+		ORDER BY clap DESC;
 	</select>
+	<select id="getRidibookListOrderByClapASC" resultType="Ridibook">
+		SELECT category, link, cover, title, author, star * starredPerson "clap"
+		FROM RIDIBOOKS
+		ORDER BY clap ASC;
+	</select>	
 	
 	<insert id="insertRidibook" parameterType="Ridibook">
 		INSERT INTO RIDIBOOKS(category, link, cover, title, author, star, starredPerson)
