@@ -27,4 +27,11 @@ public class HomeController {
 		
 		return "home";		
 	}
+	
+	@RequestMapping(value="/write/", method=RequestMethod.GET)
+	public String write(Model model) throws Exception {
+		logger.info("write");
+		
+		return "write";		
+	}
 }

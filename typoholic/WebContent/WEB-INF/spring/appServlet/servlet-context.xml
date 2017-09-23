@@ -10,6 +10,10 @@
 	<!-- 주석문의 사용 허가 -->
 	<annotation-driven/>
 	
+	<!-- 리소스 매핑 -->
+	<resources location="/WEB-INF/resources/js/" mapping="/js/**"/>
+	<resources location="/WEB-INF/resources/css/" mapping="/css/**"/>
+	
 	<!-- 뷰의 해결사 -->
 	<beans:bean id="viewResolver" 
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
