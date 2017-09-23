@@ -13,32 +13,40 @@ import org.slf4j.LoggerFactory;
 
 public class CrawlingUtil {
     private static final Logger logger = LoggerFactory.getLogger(CrawlingUtil.class);
-	
-    //html문서를 받아온다
-	public Elements getElements(String url, String CSSSelect) throws IOException {
-		
-		Document document = Jsoup.connect(url)
-				.header("Accept", 
-						"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-				.header("Accept-Encoding", "gzip, deflate, sdch, br")
-				.header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
-				.header("User-Agent", 
-						"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36")
-				.header("Connection","Keep-Alive")
-				.header("Host","ridibooks.com")
-				.get();
-
-		logger.info("setDocument");
-		
-		Elements extractElements = document.select(CSSSelect);
-		
-		logger.info("setElements");
-		
-		return extractElements;
+    private Elements elements = null;
+    
+    @SuppressWarnings("unused")
+	private CrawlingUtil() {
+    	
 	}
+    
+    public CrawlingUtil(String url, String CSSSelect) {
+        //html문서를 받아온다
+    	Document document;
+		try {
+			document = Jsoup.connect(url)
+					.header("Accept", 
+							"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+					.header("Accept-Encoding", "gzip, deflate, sdch, br")
+					.header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+					.header("User-Agent", 
+							"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36")
+					.header("Connection","Keep-Alive")
+					.header("Host","ridibooks.com")
+					.get();
+
+			logger.info("setDocument");
+			
+			elements = document.select(CSSSelect);			
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		} finally {
+			logger.info("success");			
+		}
+    }
 	
 	//받아온 문서를 이용해 a href데이터를 추출한다
-	public List<String> attrHrefCrawling(Elements elements, String CSSSelect) throws IOException {
+	public List<String> attrHrefCrawling(String CSSSelect) throws IOException {
 		List<String> list = new ArrayList<>();
 
 		for (Element ahrefEl : elements) {
@@ -49,7 +57,7 @@ public class CrawlingUtil {
 	}
 	
 	//받아온 문서를 이용해 img데이터를 추출한다
-	public List<String> attrSrcCrawling(Elements elements, String CSSSelect) throws IOException {
+	public List<String> attrSrcCrawling(String CSSSelect) throws IOException {
 		List<String> list = new ArrayList<>();
 		
 		for (Element attrSrcEl : elements) {
@@ -59,7 +67,7 @@ public class CrawlingUtil {
 		return list;
 	}
 	
-	public List<String> textCrawling(Elements elements, String CSSSelect) throws IOException {
+	public List<String> textCrawling(String CSSSelect) throws IOException {
 		List<String> list = new ArrayList<>();
 		
 		for (Element element : elements) {

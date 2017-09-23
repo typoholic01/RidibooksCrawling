@@ -4,24 +4,24 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
 <mapper namespace="web.crawling.dao.RidibookDao">
 
-	<select id="getRidibookList" resultType="web.crawling.vo.Ridibook">
+	<select id="getRidibookList" resultType="Ridibook">
 		SELECT category, link, cover, title, author, star, starredPerson
 		FROM RIDIBOOKS
 	</select>
 	
 	<!-- SortingTable -->
-	<select id="getRidibookListOrderByStarredPersonASC" resultType="web.crawling.vo.Ridibook">
+	<select id="getRidibookListOrderByStarredPersonASC" resultType="Ridibook">
 		SELECT category, link, cover, title, author, star, starredPerson
 		FROM RIDIBOOKS
 		ORDER BY starredPerson ASC;
 	</select>	
-	<select id="getRidibookListOrderByStarredPersonDESC" resultType="web.crawling.vo.Ridibook">
+	<select id="getRidibookListOrderByStarredPersonDESC" resultType="Ridibook">
 		SELECT category, link, cover, title, author, star, starredPerson
 		FROM RIDIBOOKS
 		ORDER BY starredPerson DESC;
 	</select>
 	
-	<insert id="insertRidibook" parameterType="web.crawling.vo.Ridibook">
+	<insert id="insertRidibook" parameterType="Ridibook">
 		INSERT INTO RIDIBOOKS(category, link, cover, title, author, star, starredPerson)
 		VALUES(#{category}, #{link}, #{cover}, #{title}, #{author}, #{star}, #{starredPerson})		
 	</insert>

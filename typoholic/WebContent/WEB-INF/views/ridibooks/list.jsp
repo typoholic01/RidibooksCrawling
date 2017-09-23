@@ -17,16 +17,15 @@
 <!-- AJAX -->
 <script type="text/javascript">
 function sortTable(column) {
-	var jsonData = {};
-	console.log(column);
-	jsonData.queryType = column;
+	var direction = $("#direction").val();
+	console.log(direction);
 	
 	$.ajax({
 		type: 'GET',
 		url: './json/',
 		data: {
 			"queryType" : column,
-			"direction" : "desc"
+			"direction" : direction
 		},		
 		async: true, 
 		success: function(data) {
@@ -39,6 +38,13 @@ function sortTable(column) {
  				$('tbody > tr:nth-child('+index+') > td:nth-child(5) > a').text(data[index].title);
  				$('tbody > tr:nth-child('+index+') > td:nth-child(6)').text(data[index].author);
 			});
+			
+			//방향전
+			if (direction == "desc") {
+				$("#direction").val("asc");				
+			} else {
+				$("#direction").val("desc");							
+			}
 		}
 	});
 }
@@ -47,6 +53,7 @@ function sortTable(column) {
 <title>Insert title here</title>
 </head>
 <body>
+<input id="direction" type="hidden" value="desc">
 <div class="container-fluid">
 	<div class="table-responsive">          
 		<table id="sortTable" class="table">
