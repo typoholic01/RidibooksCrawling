@@ -24,4 +24,11 @@ public class BoardController {
 		
 		return "board/detail";		
 	}
+	
+	@RequestMapping(value="/board/list/", method=RequestMethod.GET)
+	public String list(Model model) throws Exception {
+		logger.info("board/list");
+		
+		return "board/list";		
+	}
 }
