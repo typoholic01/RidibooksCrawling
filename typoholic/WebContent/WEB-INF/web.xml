@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
-  <display-name>spring01</display-name>
-  
+  <display-name>typoholic</display-name>  
   <!-- servlet Mapping -->
   <servlet>
     <servlet-name>dispatcherServlet</servlet-name>
@@ -17,7 +16,7 @@
   <servlet-mapping>
     <servlet-name>dispatcherServlet</servlet-name>
     <url-pattern>/</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
   
   <!-- app context -->
   <context-param>
@@ -28,7 +27,7 @@
   </context-param>  
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
+  </listener>  
   
   <!-- utf8 -->
   <filter>

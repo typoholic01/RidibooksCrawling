@@ -22,14 +22,14 @@ public class HomeController {
 	 * */
 
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public String home(Model model) throws Exception {
-		logger.info("home");
+	public String main(Model model) {
+		logger.info("main");
 		
-		return "home";		
+		return "main.tiles";	
 	}
 	
 	@RequestMapping(value="/write/", method=RequestMethod.GET)
-	public String write(Model model) throws Exception {
+	public String write(Model model) {
 		logger.info("write");
 		
 		return "write";		

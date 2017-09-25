@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import web.crawling.dao.RidibookDao;
-import web.crawling.jsoup.Crawling;
+import web.crawling.jsoup.BestFantasy;
 import web.crawling.vo.Ridibook;
 
 @Controller
@@ -63,11 +63,11 @@ public class RidibookController {
 		return list;
 	}
 	
-	@RequestMapping(value="/ridibooks/crawling/",method=RequestMethod.POST)
+	@RequestMapping(value="/ridibooks/crawling/",method=RequestMethod.GET)
 	public String crawling(Model model) throws IOException {
 		logger.info("crawling");
 		RidibookDao dao = session.getMapper(RidibookDao.class);
-		Crawling ctrl = new Crawling();
+		BestFantasy ctrl = new BestFantasy();
 
 		for (int i = 1; i < 8; i++) {
 			List<Ridibook> list = ctrl.getRidibookFantasyList(i);

@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import web.crawling.vo.Ridibook;
 
-public class Crawling {
-	private static final Logger logger = LoggerFactory.getLogger(Crawling.class);
+public class BestFantasy {
+	private static final Logger logger = LoggerFactory.getLogger(BestFantasy.class);
 	
 	public List<Ridibook> getRidibookFantasyList(int page) throws IOException {
 		logger.info("getFantasyDocument");

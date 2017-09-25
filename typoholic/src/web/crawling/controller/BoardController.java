@@ -11,6 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
+	@RequestMapping(value="/board.do", method=RequestMethod.GET)
+	public String board(Model model) throws Exception {
+		logger.info("board.do");
+		
+		return "board.tiles";		
+	}
+	
 	@RequestMapping(value="/board/write/", method=RequestMethod.GET)
 	public String write(Model model) throws Exception {
 		logger.info("board/write");

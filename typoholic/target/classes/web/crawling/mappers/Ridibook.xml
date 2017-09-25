@@ -18,7 +18,8 @@
 	
 	<insert id="insertRidibook" parameterType="Ridibook">
 		INSERT INTO RIDIBOOKS(category, link, cover, title, author, star, starredPerson)
-		VALUES(#{category}, #{link}, #{cover}, #{title}, #{author}, #{star}, #{starredPerson})		
+		VALUES(#{category}, #{link}, #{cover}, #{title}, #{author}, #{star}, #{starredPerson})	
+		ON DUPLICATE KEY UPDATE star=#{star}, starredPerson=#{starredPerson}	
 	</insert>
 		 
 </mapper>

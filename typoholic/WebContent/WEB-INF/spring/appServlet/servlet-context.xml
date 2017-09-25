@@ -14,13 +14,13 @@
 	<resources location="/WEB-INF/resources/js/" mapping="/js/**"/>
 	<resources location="/WEB-INF/resources/css/" mapping="/css/**"/>
 	
-	<!-- 뷰의 해결사 -->
-	<beans:bean id="viewResolver" 
+	<!-- View Mapping -->
+<!-- 	<beans:bean id="viewResolver" 
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
 		<beans:property name="prefix" value="/WEB-INF/views/"/>		
 		<beans:property name="suffix" value=".jsp"/>	
 		<beans:property name="contentType" value="text/html; charset=UTF-8" />
-	</beans:bean>
+	</beans:bean> -->
 	
 	<!-- 패키지를 등록 -->
 	<context:component-scan base-package="web.crawling"/>
@@ -30,5 +30,20 @@
 	
 	<!-- 스프링에서 처리할 수 없는 요청은 톰캣에 위임하는 설정 -->  
 	<default-servlet-handler/>
+	
+	<!-- layout 설정 xml을 등록 -->
+	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/layouts/layouts.xml</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- tiles를 사용 설정 --> 
+	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<beans:property name="requestContextAttribute" value="requestContext"/>
+		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+	</beans:bean>
 	
 </beans:beans>
