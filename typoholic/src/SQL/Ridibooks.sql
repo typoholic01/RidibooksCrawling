@@ -31,3 +31,8 @@ delete from ridibooks;
 
 --문자열 확인
 SHOW VARIABLES LIKE 'c%'
+
+SELECT category, link, cover, title, author, star * starredPerson "clap"
+FROM RIDIBOOKS
+ORDER BY clap DESC
+LIMIT 0, 10;

@@ -3,17 +3,24 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
 <mapper namespace="web.crawling.dao.RidibookDao">
+
+	<!-- getTotalCount -->
+	<select id="getTotalBook" resultType="Integer">
+		SELECT count(link)
+		FROM RIDIBOOKS
+	</select>
 	
 	<!-- SortingTable -->
-	<select id="getRidibookListOrderByClapDESC" resultType="Ridibook">
+	<select id="getRidibookListOrderByClapDESC" resultType="Ridibook" parameterType="web.crawling.util.Pagination">
 		SELECT category, link, cover, title, author, star * starredPerson "clap"
 		FROM RIDIBOOKS
-		ORDER BY clap DESC;
+		ORDER BY clap DESC
+		LIMIT #{startArticle}, #{articleLimit}
 	</select>
 	<select id="getRidibookListOrderByClapASC" resultType="Ridibook">
 		SELECT category, link, cover, title, author, star * starredPerson "clap"
 		FROM RIDIBOOKS
-		ORDER BY clap ASC;
+		ORDER BY clap ASC
 	</select>	
 	
 	<insert id="insertRidibook" parameterType="Ridibook">

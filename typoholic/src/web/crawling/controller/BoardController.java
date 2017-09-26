@@ -15,7 +15,7 @@ public class BoardController {
 	public String board(Model model) throws Exception {
 		logger.info("board.do");
 		
-		return "board.tiles";		
+		return "board.tiles";	
 	}
 	
 	@RequestMapping(value="/board/write/", method=RequestMethod.GET)

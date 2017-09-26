@@ -25,44 +25,6 @@ public class RidibookController {
 	@Autowired
 	SqlSession session;	
 	
-	@RequestMapping(value="/ridibooks/",method=RequestMethod.GET)
-	public String ridibooks(Model model) {
-		logger.info("ridibooks");
-		RidibookDao dao = session.getMapper(RidibookDao.class);
-		
-		List<Ridibook> list = dao.getRidibookListOrderByClapDESC();
-		
-		model.addAttribute("list", list);
-		
-		return "ridibooks/list";
-	}
-	
-	@RequestMapping(value="/ridibooks/json/",method=RequestMethod.GET)
-	public @ResponseBody List<Ridibook> ridibooksPut(@RequestParam("queryType") String queryType, @RequestParam("direction") String direction) {
-		logger.info("ridibooksPut");
-		logger.info("queryType: {} \t\t direction: {}",queryType,direction);
-		RidibookDao dao = session.getMapper(RidibookDao.class);
-		
-		//init
-		List<Ridibook> list = null;
-		
-		dao = session.getMapper(RidibookDao.class);
-		
-		if (direction.equals("desc")) {
-			if (queryType.equals("star"))
-				list = null;
-			else if (queryType.equals("clap"))
-				list = dao.getRidibookListOrderByClapDESC();
-		} else {
-			if (queryType.equals("star"))
-				list = null;
-			else if (queryType.equals("clap"))
-				list = dao.getRidibookListOrderByClapASC();	
-		}		
-		
-		return list;
-	}
-	
 	@RequestMapping(value="/ridibooks/crawling/",method=RequestMethod.GET)
 	public String crawling(Model model) throws IOException {
 		logger.info("crawling");
