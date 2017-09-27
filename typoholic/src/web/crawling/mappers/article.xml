@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="web.bbs.dao.Board">
+	<insert id="setArticle">
+		INSERT INTO article(boardSeq,articleGroupNo,userId,title,content)
+		values(
+			#{boardSeq},
+			(select ifnull(max(articleSeq), 0)+1 from article),
+			#{userId},
+			#{title},
+			#{content}
+		)
+	</insert>
+</mapper>

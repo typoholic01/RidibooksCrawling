@@ -23,7 +23,7 @@
 	</beans:bean> -->
 	
 	<!-- 패키지를 등록 -->
-	<context:component-scan base-package="web.crawling"/>
+	<context:component-scan base-package="web"/>
 	
 	<!-- application context안이 이미 등록된 bean들의 Annotation을 활성화하기 위해 사용된다 -->
 	<context:annotation-config/>

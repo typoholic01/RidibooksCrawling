@@ -1,0 +1,15 @@
+-- 테이블 삭제
+drop table file
+CASCADE;
+
+--테이블 생성
+CREATE TABLE file(
+	fileSeq INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	originalFileName VARCHAR(255) NOT NULL,
+	storedFileName VARCHAR(255) NOT NULL,
+	fileSize BIGINT(20) UNSIGNED NOT NULL,
+	contentType VARCHAR(255) NOT NULL,
+	downCount INT(10) UNSIGNED NOT NULL,
+	createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (fileSeq)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
