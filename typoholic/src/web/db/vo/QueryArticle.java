@@ -2,7 +2,7 @@ package web.db.vo;
 
 import java.io.Serializable;
 
-public class QueryBoard implements Serializable {
+public class QueryArticle implements Serializable {
 	private static final long serialVersionUID = -2619339902153486228L;
 	
 	private String boardUrl;					//게시판 제목

@@ -1,4 +1,4 @@
-package web.db.dao;
+package web.db.service;
 
 import java.util.List;
 
@@ -7,18 +7,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-import web.db.service.ArticleService;
+import web.db.dao.ArticleDao;
+import web.db.dao.CommentDao;
+import web.db.dao.RidibookDao;
 import web.db.vo.Article;
 import web.db.vo.QueryArticle;
+import web.db.vo.Ridibook;
+import web.view.util.Pagination;
 
-@Repository
-public class ArticleDao {
+@Service
+public class ArticleService {
 	private static final Logger logger = LoggerFactory.getLogger(ArticleService.class);
-	private static final String ns = "Articles.";
 	
 	@Autowired
-	SqlSession session;	
+	ArticleDao dao;	
 
 	/*************************************************
 	 * 					CREATE

@@ -1,4 +1,4 @@
-package web.db.dao;
+package web.db.service;
 
 import java.util.List;
 
@@ -6,45 +6,56 @@ import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-import web.db.service.ArticleService;
+import web.db.dao.ArticleDao;
+import web.db.dao.CommentDao;
+import web.db.dao.RidibookDao;
 import web.db.vo.Article;
+import web.db.vo.Comment;
 import web.db.vo.QueryArticle;
+import web.db.vo.QueryComment;
+import web.db.vo.Ridibook;
+import web.view.util.Pagination;
 
-@Repository
-public class ArticleDao {
-	private static final Logger logger = LoggerFactory.getLogger(ArticleService.class);
-	private static final String ns = "Articles.";
+public class CommentService {
+	private static final Logger logger = LoggerFactory.getLogger(CommentService.class);
 	
 	@Autowired
 	SqlSession session;	
+	
+	CommentDao dao = session.getMapper(CommentDao.class);
 
 	/*************************************************
 	 * 					CREATE
 	 * ***********************************************/
 
 
-	public boolean insertBbs(Article bbs) {
+	public boolean insertComment(Comment comment) {
 		logger.info("진입");
-		return daoArticle.insertBbs(bbs);		
+		return dao.insertComment(comment);		
 	}; 
+
+
+
 
 	/*************************************************
 	 * 					READ
 	 * ***********************************************/
-	public int getTotalBbs(String boardName) {
+	public Comment getComment(int commentSeq) {
 		logger.info("진입");
-		return daoArticle.getTotalBbs(boardName);
-	} 
-	public Article getBbs(int bbsSeq) {
+		return dao.getComment(commentSeq);
+		
+	}
+	public List<Comment> getCommentList(QueryComment query) {
 		logger.info("진입");
-		return daoArticle.getBbs(bbsSeq);
-	} 
-	public List<Article> getBbsList(QueryArticle query) {
+		return dao.getCommentList(query);
+		
+	}
+	public int getTotalComment(int bbsSeq) {
 		logger.info("진입");
-		return daoArticle.getBbsList(query);		
-	};
+		return dao.getTotalComment(bbsSeq);
+		
+	}
 	
 
 	
@@ -53,9 +64,9 @@ public class ArticleDao {
 	 * 					UPDATE
 	 * ***********************************************/
 
-	public boolean updateBbs(Article bbs) {
+	public boolean updateComment(Comment comment) {
 		logger.info("진입");
-		return daoArticle.updateBbs(bbs);
+		return dao.updateComment(comment);
 	}
 	
 	
@@ -63,8 +74,8 @@ public class ArticleDao {
 	 * 					DELETE
 	 * ***********************************************/
 
-	public boolean deleteBbs(int seq) {
+	public boolean deleteComment(int commentSeq) {
 		logger.info("진입");
-		return daoArticle.deleteBbs(seq);
+		return dao.deleteComment(commentSeq);
 	}
 }

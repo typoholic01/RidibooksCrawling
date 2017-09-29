@@ -2,11 +2,11 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
-<mapper namespace="Comments">
+<mapper namespace="web.db.dao.CommentDao">
 
 	<!-- 						CREATE 						-->
 	<!-- 게시물 입력 -->
-	<insert id="insertComment" parameterType="CommentDto" useGeneratedKeys="false">
+	<insert id="insertComment" parameterType="Comment" useGeneratedKeys="false">
 		INSERT INTO COMMENTS(
 			BBS_SEQ,COMMENT_GROUP_NO,COMMENT_SEQ,USER_ID,COMMENT_CONTENT
 		)
@@ -17,7 +17,7 @@
 
 	<!-- 						READ 						-->
 	<!-- 게시물 하나 가져오기 -->
-	<select id="getComment" resultType="CommentDto" parameterType="Integer">
+	<select id="getComment" resultType="Comment" parameterType="Integer">
 		SELECT 
 			BBS_SEQ as bbsSeq, 
 			COMMENT_GROUP_NO as commentGroupNo,
@@ -32,7 +32,7 @@
 	</select>
 	
 	<!-- 게시물들 가져오기 -->
-	<select id="getCommentList" resultType="CommentDto" parameterType="QueryComment">
+	<select id="getCommentList" resultType="Comment" parameterType="QueryComment">
 		SELECT 
 			BBS_SEQ as bbsSeq, 
 			COMMENT_GROUP_NO as commentGroupNo,
@@ -61,7 +61,7 @@
 	</select>
 	
 	<!-- Update -->
-	<update id="updateComment" parameterType="CommentDto">
+	<update id="updateComment" parameterType="Comment">
 		UPDATE COMMENTS
 		SET COMMENT_CONTENT = #{commentContent}
 		WHERE BBS_SEQ = #{bbsSeq}

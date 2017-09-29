@@ -17,7 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import web.db.service.BoardService;
+import web.db.service.ArticleService;
+import web.db.vo.Article;
+import web.db.vo.QueryArticle;
+import web.view.util.FileUpload;
+import web.view.util.Pagination;
 
 @Controller
 public class BoardController {
@@ -25,7 +29,7 @@ public class BoardController {
 	//http://springboot.tistory.com/25 예외처리
 	
 	@Autowired
-	BoardService serv;
+	ArticleService serv;
 	
 	/*************************************************
 	 * 					CREATE
@@ -91,14 +95,14 @@ public class BoardController {
 		
 		//init
 		List<Article> bbsList;
-		QueryBoard query;
+		QueryArticle query;
 		Pagination pagination;
 		
 		//페이징
 		pagination = new Pagination(getTotalBbs(boardUrl), getCurrPage(req));
 
 		//질의 설정
-		query = new QueryBoard();
+		query = new QueryArticle();
 		query.setBoardUrl(boardUrl);
 		query.setStartArticle(pagination.getStartArticle());
 		query.setEndArticle(pagination.getEndArticle());
@@ -122,7 +126,7 @@ public class BoardController {
 		Pagination pagination;
 		List<Article> bbsList;
 		Article bbs;
-		QueryBoard query;
+		QueryArticle query;
 		int seq;
 
 		//페이징
@@ -131,7 +135,7 @@ public class BoardController {
 		//질의 설정
 		seq = Integer.parseInt(req.getParameter("seq"));
 		
-		query = new QueryBoard();
+		query = new QueryArticle();
 		query.setBoardUrl(boardUrl);
 		query.setStartArticle(pagination.getStartArticle());
 		query.setEndArticle(pagination.getEndArticle());

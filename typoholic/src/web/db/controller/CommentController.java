@@ -17,7 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import web.db.service.BoardService;
+import web.db.service.ArticleService;
+import web.db.service.CommentService;
+import web.db.vo.Comment;
+import web.db.vo.QueryComment;
+import web.view.util.Pagination;
 
 @Controller
 public class CommentController {
@@ -25,7 +29,7 @@ public class CommentController {
 	private static final String prefixAddress = "/comment/";
 	
 	@Autowired
-	BoardService serv;
+	CommentService serv;
 
 	/*************************************************
 	 * 					CREATE
@@ -40,10 +44,10 @@ public class CommentController {
 		int page;
         String userId;
         String commentContent;
-        CommentDto comment;
+        Comment comment;
         
         //init
-        comment = new CommentDto();
+        comment = new Comment();
         
         //listen
         boardUrl = req.getParameter("boardUrl");
@@ -77,7 +81,7 @@ public class CommentController {
 		
 		//init
 		Map<String,Object> map;
-		List<CommentDto> commentList;
+		List<Comment> commentList;
 		QueryComment queryComment;
 		Pagination pagination;
 		int bbsSeq;
@@ -115,7 +119,7 @@ public class CommentController {
 	 * ***********************************************/	
 	//글 수정하기
 	@RequestMapping(value="/comment/updateAf.do",method=RequestMethod.POST)
-	public String updateAfArticle(RedirectAttributes redirectAttr, HttpServletRequest req, CommentDto comment, Model model) {
+	public String updateAfArticle(RedirectAttributes redirectAttr, HttpServletRequest req, Comment comment, Model model) {
 		logger.info("comment/updateAf");
 		
 		//init

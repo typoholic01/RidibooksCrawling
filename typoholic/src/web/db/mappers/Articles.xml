@@ -2,11 +2,11 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
-<mapper namespace="MainBbs">
+<mapper namespace="Articles">
 
 	<!-- 						CREATE 						-->
 	<!-- 게시물 입력 -->
-	<insert id="insertBbs" parameterType="MainBBS" useGeneratedKeys="false">
+	<insert id="insertBbs" parameterType="Article" useGeneratedKeys="false">
 		INSERT INTO MAIN_BBS(
 			BOARD_URL, BBS_REF, BBS_SEQ, USER_ID, BBS_TITLE, 
 			BBS_CONTENT, BBS_STORED_FILENAME, BBS_ORG_FILENAME
@@ -19,7 +19,7 @@
 
 	<!-- 						READ 						-->
 	<!-- 게시물들 가져오기 -->
-	<select id="getBbsList" resultType="MainBBS" parameterType="QueryBbs">
+	<select id="getBbsList" resultType="Article" parameterType="QueryArticle">
 		SELECT 
 			BBS_REF as bbsRef, 
 			BBS_REPLY as bbsReply, 
@@ -43,7 +43,7 @@
 	</select>
 	
 	<!-- 게시물 하나 가져오기 -->
-	<select id="getBbs" resultType="MainBBS" parameterType="Integer">
+	<select id="getBbs" resultType="Article" parameterType="Integer">
 		SELECT 
 			BBS_REF as bbsRef, 
 			BBS_REPLY as bbsReply, 
@@ -69,7 +69,7 @@
 	</select>
 	
 	<!-- Update -->
-	<update id="updateBbs" parameterType="MainBBS">
+	<update id="updateBbs" parameterType="Article">
 		UPDATE MAIN_BBS
 		SET BBS_TITLE = #{bbsTitle},
 			BBS_CONTENT = #{bbsContent}
