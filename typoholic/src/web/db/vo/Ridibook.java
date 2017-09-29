@@ -1,4 +1,4 @@
-package web.crawling.vo;
+package web.db.vo;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package web.crawling.controller;
+package web.db.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import web.crawling.dao.RidibookDao;
 import web.crawling.jsoup.BestFantasy;
-import web.crawling.vo.Ridibook;
+import web.db.dao.RidibookDao;
+import web.db.vo.Ridibook;
 
 @Controller
 public class RidibookController {

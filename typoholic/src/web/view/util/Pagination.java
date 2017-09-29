@@ -1,4 +1,4 @@
-package web.crawling.util;
+package web.view.util;
 
 public class Pagination {
 

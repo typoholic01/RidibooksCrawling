@@ -1,9 +1,9 @@
-package web.crawling.dao;
+package web.db.dao;
 
 import java.util.List;
 
-import web.crawling.util.Pagination;
-import web.crawling.vo.Ridibook;
+import web.db.vo.Ridibook;
+import web.view.util.Pagination;
 
 public interface RidibookDao {
 	
