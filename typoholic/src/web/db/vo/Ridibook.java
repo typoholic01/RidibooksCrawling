@@ -2,6 +2,9 @@ package web.db.vo;
 
 import java.io.Serializable;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("Ridibook")
 public class Ridibook implements Serializable {
 	private static final long serialVersionUID = -4572117714450559088L;
 	

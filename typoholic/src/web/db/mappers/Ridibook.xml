@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
-<mapper namespace="web.crawling.dao.RidibookDao">
+<mapper namespace="Ridibook">
 
 	<!-- getTotalCount -->
 	<select id="getTotalBook" resultType="Integer">
@@ -11,7 +11,7 @@
 	</select>
 	
 	<!-- SortingTable -->
-	<select id="getRidibookListOrderByClapDESC" resultType="Ridibook" parameterType="web.crawling.util.Pagination">
+	<select id="getRidibookListOrderByClapDESC" resultType="Ridibook" parameterType="web.view.util.Pagination">
 		SELECT category, link, cover, title, author, star * starredPerson "clap"
 		FROM RIDIBOOKS
 		ORDER BY clap DESC

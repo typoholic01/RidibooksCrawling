@@ -50,10 +50,10 @@ DELIMITER $$
 GRANT SELECT, INSERT, UPDATE, DELETE ON mysql.proc to userid IDENTIFIED BY ‘password‘;
 
 --시퀀스 생성 실행
-call create_sequence('seq_name');
+call create_sequence('postSeq');
 
 --시퀀스 현재값 실행
-select currval('articleSeq') from dual;
+select currval('postSeq') from dual;
 
 --시퀀스 다음값 실행
 select nextval('articleSeq') from dual;

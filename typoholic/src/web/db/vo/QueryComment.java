@@ -2,6 +2,9 @@ package web.db.vo;
 
 import java.io.Serializable;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("QueryComment")
 public class QueryComment implements Serializable {
 	private static final long serialVersionUID = -2619339902153486228L;
 	

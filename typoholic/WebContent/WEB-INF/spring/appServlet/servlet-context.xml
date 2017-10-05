@@ -3,12 +3,14 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:beans="http://www.springframework.org/schema/beans"	
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-
-	<!-- 주석문의 사용 허가 -->
-	<annotation-driven/>
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	
+	<!-- 주석문 사용허가 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 	
 	<!-- 리소스 매핑 -->
 	<resources location="/WEB-INF/resources/js/" mapping="/js/**"/>
@@ -30,6 +32,11 @@
 	
 	<!-- 스프링에서 처리할 수 없는 요청은 톰캣에 위임하는 설정 -->  
 	<default-servlet-handler/>
+	
+	<!-- 트랜잭션 묶기 -->
+	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+     <beans:property name="dataSource" ref="dataSource"/>
+	</beans:bean>
 	
 	<!-- layout 설정 xml을 등록 -->
 	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">

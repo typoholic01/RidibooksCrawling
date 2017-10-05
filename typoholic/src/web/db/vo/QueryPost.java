@@ -2,25 +2,28 @@ package web.db.vo;
 
 import java.io.Serializable;
 
-public class QueryBoard implements Serializable {
+import org.apache.ibatis.type.Alias;
+
+@Alias("QueryPost")
+public class QueryPost implements Serializable {
 	private static final long serialVersionUID = -2619339902153486228L;
 	
-	private String boardUrl;					//게시판 제목
-	private int bbsSeq;							//질의 번호
+	private int boardSeq;						//게시판 제목
+	private int postSeq;						//질의 번호
 	private int startArticle;					//시작 게시물
 	private int endArticle;						//끝 게시물
-
-	public String getBoardUrl() {
-		return boardUrl;
+	
+	public int getBoardSeq() {
+		return boardSeq;
 	}
-	public void setBoardUrl(String boardUrl) {
-		this.boardUrl = boardUrl;
+	public void setBoardSeq(int boardSeq) {
+		this.boardSeq = boardSeq;
 	}
-	public int getBbsSeq() {
-		return bbsSeq;
+	public int getPostSeq() {
+		return postSeq;
 	}
-	public void setBbsSeq(int bbsSeq) {
-		this.bbsSeq = bbsSeq;
+	public void setPostSeq(int postSeq) {
+		this.postSeq = postSeq;
 	}
 	public int getStartArticle() {
 		return startArticle;
@@ -37,9 +40,10 @@ public class QueryBoard implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Query [boardUrl=" + boardUrl + ", bbsSeq=" + bbsSeq + ", startArticle=" + startArticle
+		return "QueryPost [boardSeq=" + boardSeq + ", postSeq=" + postSeq + ", startArticle=" + startArticle
 				+ ", endArticle=" + endArticle + "]";
 	}
 
+	
 	
 }

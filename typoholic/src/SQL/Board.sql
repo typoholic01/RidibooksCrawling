@@ -15,5 +15,5 @@ CREATE TABLE board(
 SELECT * FROM board;
 
 --자동생성
-INSERT INTO board
-values();
+INSERT INTO board(boardName)
+values('자유 게시판');

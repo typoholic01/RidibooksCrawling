@@ -2,31 +2,31 @@ package web.db.dao;
 
 import java.util.List;
 
-import web.db.vo.Comment;
-import web.db.vo.QueryComment;
+import web.db.vo.Post;
+import web.db.vo.QueryPost;
 
-public interface CommentDao {
+public interface PostDao {
 	
+
 	/*******************************************
 	 * 					CREATE					
 	 * *****************************************/
-	boolean insertComment(Comment comment);
+	boolean insertPost(Post post);
 	
 	/*******************************************
 	 * 					READ					
 	 * *****************************************/
-	Comment getComment(int commentSeq);
-	List<Comment> getCommentList(QueryComment query);
-	int getTotalComment(int bbsSeq);
+	Post getPost(int postSeq);
+	List<Post> getPostList(QueryPost query);
+	int getTotalPost(int postSeq);
 	
 	/*******************************************
 	 * 					UPDATE					
 	 * *****************************************/
-	boolean updateComment(Comment comment);
+	boolean updatePost(Post post);
 
 	/*******************************************
 	 * 					DELETE					
 	 * *****************************************/
-	boolean deleteComment(int commentSeq);
-
+	boolean deletePost(int postSeq);
 }
