@@ -18,7 +18,7 @@ public interface PostDao {
 	 * *****************************************/
 	Post getPost(int postSeq);
 	List<Post> getPostList(QueryPost query);
-	int getTotalPost(int postSeq);
+	int getTotalPost(String boardUrl);
 	
 	/*******************************************
 	 * 					UPDATE					

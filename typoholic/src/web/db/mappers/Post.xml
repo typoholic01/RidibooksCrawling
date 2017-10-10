@@ -2,16 +2,16 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
-<mapper namespace="Post">
+<mapper namespace="web.db.dao.PostDao">
 
 	<!-- 						CREATE 						-->
 	<!-- 게시물 입력 -->
 	<insert id="insertPost" parameterType="Post" useGeneratedKeys="false">
 		INSERT INTO Posts(
-			boardSeq,groupNo,seq,userId,title,content
+			boardUrl,groupNo,seq,userId,title,content
 		)
 		VALUES(
-			#{boardSeq}, nextval('postSeq'), currval('postSeq'), #{userId}, #{title}, #{content}
+			#{boardUrl}, nextval('postSeq'), currval('postSeq'), #{userId}, #{title}, #{content}
 		)
 	</insert>
 
@@ -21,9 +21,9 @@
 		SELECT 
 			depth,seq,status,userId,title,content,readCount,createAt
 		FROM Posts
-		ORDER BY groupNo DESC, depth ASC
-		WHERE boardSeq = #{boardSeq}
+		WHERE boardUrl = #{boardUrl}
 		AND status = 1
+		ORDER BY groupNo DESC, depth ASC
 		LIMIT #{startArticle}, #{articleLimit}
 	</select>
 	
@@ -37,9 +37,9 @@
 	
 	<!-- 총 게시물 수 가져오기 -->
 	<select id="getTotalPost" parameterType="String" resultType="Integer">
-		SELECT NVL(COUNT(seq), 0)
+		SELECT COUNT(seq)
 		FROM Posts
-		WHERE boardSeq = #{boardSeq}
+		WHERE boardUrl = #{boardUrl}
 		AND status = 1
 	</select>
 	
@@ -48,7 +48,7 @@
 		UPDATE Posts
 		SET title = #{title},
 			content = #{content}
-		WHERE boardSeq = #{boardSeq}
+		WHERE boardUrl = #{boardUrl}
 		AND seq = #{seq}
 	</update>
 	

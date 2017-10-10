@@ -1,31 +1,34 @@
-package web.db.dao;
+package web.db.service;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import web.db.dao.RidibooksDao;
 import web.db.vo.Ridibook;
 import web.view.util.Pagination;
 
-@Repository
-public class RidibooksDao {
+@Service
+@Transactional
+public class RidibookService {
 	private static final Logger logger = LoggerFactory.getLogger(RidibooksDao.class);
-	private static final String ns = "Ridibook.";
 	
 	@Autowired
-	SqlSession session;	
-
+	RidibooksDao dao;
+	
 	/*************************************************
 	 * 					CREATE
 	 * ***********************************************/
+
 	public boolean insertRidibook(Ridibook ridibook) {
 		logger.info("진입");
 		
-		return session.insert(ns+"insertRidibook", ridibook) > 0 ? true:false;
+		return dao.insertRidibook(ridibook);
+		
 	}
 	
 
@@ -34,17 +37,17 @@ public class RidibooksDao {
 	 * ***********************************************/
 	public int getTotalBook() {
 		logger.info("진입");
-		return session.selectOne(ns+"getTotalBook");
+		return dao.getTotalBook();
 	}
 	
 	/* SORTING */
 	public List<Ridibook> getRidibookListOrderByClapDESC(Pagination pagination) {
 		logger.info("진입");
-		return session.selectList(ns+"getRidibookListOrderByClapDESC",pagination);
+		return dao.getRidibookListOrderByClapDESC(pagination);
 	}
 	public List<Ridibook> getRidibookListOrderByClapASC() {
 		logger.info("진입");
-		return session.selectList(ns+"getRidibookListOrderByClapASC");
+		return dao.getRidibookListOrderByClapASC();
 	}
 	
 
@@ -57,4 +60,5 @@ public class RidibooksDao {
 	/*************************************************
 	 * 					DELETE
 	 * ***********************************************/
+
 }

@@ -8,7 +8,7 @@ import org.apache.ibatis.type.Alias;
 public class Post implements Serializable {
 	private static final long serialVersionUID = 1843374038002416069L;
 	
-	private int boardSeq;
+	private String boardUrl;
 	private int groupNo;
 	private String depth;
 	private int seq;
@@ -20,11 +20,11 @@ public class Post implements Serializable {
 	private String createAt;
 	private String updateAt;
 	
-	public int getBoardSeq() {
-		return boardSeq;
+	public String getBoardUrl() {
+		return boardUrl;
 	}
-	public void setBoardSeq(int boardSeq) {
-		this.boardSeq = boardSeq;
+	public void setBoardUrl(String boardUrl) {
+		this.boardUrl = boardUrl;
 	}
 	public int getGroupNo() {
 		return groupNo;
@@ -89,7 +89,7 @@ public class Post implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Post [boardSeq=" + boardSeq + ", groupNo=" + groupNo + ", depth=" + depth + ", seq=" + seq + ", status="
+		return "Post [boardUrl=" + boardUrl + ", groupNo=" + groupNo + ", depth=" + depth + ", seq=" + seq + ", status="
 				+ status + ", userId=" + userId + ", title=" + title + ", content=" + content + ", readCount="
 				+ readCount + ", createAt=" + createAt + ", updateAt=" + updateAt + "]";
 	}

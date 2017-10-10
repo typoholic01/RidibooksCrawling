@@ -38,11 +38,11 @@ public class PostService {
 	 * 					READ
 	 * ***********************************************/	
 
-	public int getTotalPost(int postSeq) {
+	public int getTotalPost(String boardUrl) {
 		logger.info("진입");
 		dao = session.getMapper(PostDao.class);
 		
-		return dao.getTotalPost(postSeq);
+		return dao.getTotalPost(boardUrl);
 	} 
 
 	public Post getPost(int postSeq) {

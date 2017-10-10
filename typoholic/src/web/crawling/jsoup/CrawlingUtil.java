@@ -45,6 +45,11 @@ public class CrawlingUtil {
 		}
     }
 	
+	@Override
+	public String toString() {
+		return elements.toString();
+	}
+
 	//받아온 문서를 이용해 a href데이터를 추출한다
 	public List<String> attrHrefCrawling(String CSSSelect) throws IOException {
 		List<String> list = new ArrayList<>();

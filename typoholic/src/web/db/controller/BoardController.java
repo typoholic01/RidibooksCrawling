@@ -45,9 +45,9 @@ public class BoardController {
 	}
 	
 	//글쓰기 기능
-	@RequestMapping(value="/{boardSeq}/writeAf.do",method=RequestMethod.POST)
-	public String writePost(@PathVariable int boardSeq, MultipartHttpServletRequest req, MultipartFile uploadFile, Model model) throws IOException {
-		logger.info("Post: /{}/writeAf.do",boardSeq);
+	@RequestMapping(value="/{boardUrl}/writeAf.do",method=RequestMethod.POST)
+	public String writePost(@PathVariable String boardUrl, MultipartHttpServletRequest req, MultipartFile uploadFile, Model model) throws IOException {
+		logger.info("Post: /{}/writeAf.do",boardUrl);
 		//init
 		String path = "";
         String userId;
@@ -65,7 +65,7 @@ public class BoardController {
 		content = req.getParameter("bbsContent");
 		
 		//setup
-		post.setBoardSeq(boardSeq);
+		post.setBoardUrl(boardUrl);
 		post.setUserId(userId);
 		post.setTitle(title);
 		post.setContent(content);
@@ -74,7 +74,7 @@ public class BoardController {
 		
 		logger.info("insert Done");
 		
-		return "redirect:/"+boardSeq+"/list.do";
+		return "redirect:/"+boardUrl+"/list.do";
 	}
 	
 	
@@ -82,56 +82,57 @@ public class BoardController {
 	 * 					READ
 	 * ***********************************************/
 	//리스트 화면
-	@RequestMapping(value="/{boardSeq}/list.do",method=RequestMethod.GET)
-	public String list(@PathVariable int boardSeq, HttpServletRequest req, Model model) {
-		logger.info("/bbs/list.do");
+	@RequestMapping(value="/{boardUrl}/",method=RequestMethod.GET)
+	public String list(@PathVariable String boardUrl, HttpServletRequest req, Model model) {
+		logger.info("/{}/",boardUrl);
 		
 		//init
-		List<Post> bbsList;
+		List<Post> postList;
 		QueryPost query;
 		Pagination pagination;
 		
 		//페이징
-		pagination = new Pagination(getTotalPost(boardSeq), getCurrPage(req));
+		pagination = new Pagination(getTotalPost(boardUrl), getCurrPage(req));
 
 		//질의 설정
 		query = new QueryPost();
-		query.setBoardSeq(boardSeq);
+		query.setBoardUrl(boardUrl);
 		query.setStartArticle(pagination.getStartArticle());
 		query.setEndArticle(pagination.getEndArticle());
+		query.setArticleLimit(pagination.getArticleLimit());
 		
 		//받아오기
-		bbsList = serv.getPostList(query);
+		postList = serv.getPostList(query);
 		
 		//요소 추가
-		model.addAttribute("bbsList", bbsList);
+		model.addAttribute("bbsList", postList);
 		model.addAttribute("pagination", pagination);
-		model.addAttribute("boardSeq", boardSeq);
+		model.addAttribute("boardName", "자유 게시판");
 		
-		return "mainBbsList.tiles";
+		return "board.tiles";
 	}
 
 	//디테일 화면
-	@RequestMapping(value="/{boardSeq}/detail.do",method=RequestMethod.GET)
-	public String detail(@PathVariable int boardSeq, HttpServletRequest req, Model model) {
-		logger.info("/{}/detail.do", boardSeq);
+	@RequestMapping(value="/{boardUrl}/{postSeq}/",method=RequestMethod.GET)
+	public String detail(@PathVariable String boardUrl, @PathVariable int postSeq, HttpServletRequest req, Model model) {
+		logger.info("/{}/{}", boardUrl, postSeq);
 		//init
 		Pagination pagination;
 		List<Post> bbsList;
 		Post bbs;
 		QueryPost query;
-		int postSeq;
 
 		//페이징
-		pagination = new Pagination(getTotalPost(boardSeq), getCurrPage(req));
+		pagination = new Pagination(getTotalPost(boardUrl), getCurrPage(req));
 		
 		//질의 설정
 		postSeq = Integer.parseInt(req.getParameter("seq"));
 		
 		query = new QueryPost();
-		query.setBoardSeq(boardSeq);
+		query.setBoardUrl(boardUrl);
 		query.setStartArticle(pagination.getStartArticle());
 		query.setEndArticle(pagination.getEndArticle());
+		query.setArticleLimit(pagination.getArticleLimit());
 		
 		//DB 데이터
 		bbs = serv.getPost(postSeq);
@@ -140,7 +141,7 @@ public class BoardController {
 		//요소 추가
 		model.addAttribute("bbsList", bbsList);
 		model.addAttribute("pagination", pagination);
-		model.addAttribute("boardSeq", boardSeq);
+		model.addAttribute("boardSeq", boardUrl);
 		model.addAttribute("bbs", bbs);
 		
 //		//매핑
@@ -178,12 +179,12 @@ public class BoardController {
 	}
 	
 	//글 수정하기
-	@RequestMapping(value="/{boardSeq}/updateAf.do",method=RequestMethod.POST)
-	public String updateAfArticle(@PathVariable int boardSeq, Post post, Model model) {
+	@RequestMapping(value="/{boardUrl}/updateAf.do",method=RequestMethod.POST)
+	public String updateAfArticle(@PathVariable String boardUrl, Post post, Model model) {
 		logger.info("updateAfArticle");
 		
 		//query Set
-		post.setBoardSeq(boardSeq);
+		post.setBoardUrl(boardUrl);
 		
 		//DB set
 		try {
@@ -193,7 +194,7 @@ public class BoardController {
 			logger.error(e.getMessage());
 		}
 		
-		return  "redirect:/"+boardSeq+"/list.do";
+		return  "redirect:/"+boardUrl+"/list.do";
 	}
 	
 	
@@ -242,8 +243,8 @@ public class BoardController {
 		return seq;
 	}
 
-	private int getTotalPost(int boardSeq) {
-		return serv.getTotalPost(boardSeq);
+	private int getTotalPost(String boardUrl) {
+		return serv.getTotalPost(boardUrl);
 	}
 
 }

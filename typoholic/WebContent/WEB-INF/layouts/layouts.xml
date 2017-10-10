@@ -5,7 +5,7 @@
 
 <!-- 메인영역 -->
 <definition name="main.tiles" template="/WEB-INF/layouts/main.jsp">
-	<put-attribute name="head" value="/WEB-INF/views/main/head.jsp"/>
+	<put-attribute name="head" value="/WEB-INF/views/common/head.jsp"/>
 	<put-attribute name="navbar" value="/WEB-INF/views/common/navbar.jsp"/>
 	<put-attribute name="main" value="/WEB-INF/views/main/mainContent.jsp"/>
 	<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
@@ -13,11 +13,23 @@
 
 <!-- bookList -->
 <definition name="booklist.tiles" template="/WEB-INF/layouts/booklist.jsp">
-	<put-attribute name="head" value="/WEB-INF/views/main/head.jsp"/>
+	<put-attribute name="head" value="/WEB-INF/views/common/head.jsp"/>
 	<put-attribute name="navbar" value="/WEB-INF/views/common/navbar.jsp"/>
 	<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
 	<put-attribute name="sidenav" value="/WEB-INF/views/book/sidenav.jsp"/>
 	<put-attribute name="main" value="/WEB-INF/views/book/view.jsp"/>
 </definition>
+
+<!-- board -->
+<definition name="board.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/board/list.jsp"/>
+</definition>
+
+<!-- User -->
+<!-- UserAccount -->
+<definition name="userAccount.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/user/account.jsp"/>
+</definition>
+
 
 </tiles-definitions>

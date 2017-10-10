@@ -6,7 +6,7 @@
     <appender name="stdout" class="org.apache.log4j.ConsoleAppender">  
         <!-- 패턴 레이아웃 설정.. -->  
         <layout class="org.apache.log4j.PatternLayout">  
-            <param name="ConversionPattern" value="%p: %d{HH:mm:ss} [%c{1}] %m %n"/>  
+            <param name="ConversionPattern" value="%p: %d{HH:mm:ss} [%c{1}.%M] %m %n"/>  
         </layout>  
     </appender>  
  

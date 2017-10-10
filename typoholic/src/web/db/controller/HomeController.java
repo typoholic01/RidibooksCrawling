@@ -27,11 +27,4 @@ public class HomeController {
 		
 		return "main.tiles";	
 	}
-	
-	@RequestMapping(value="/write/", method=RequestMethod.GET)
-	public String write(Model model) {
-		logger.info("write");
-		
-		return "write";		
-	}
 }

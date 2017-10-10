@@ -12,3 +12,7 @@ i.fa-comment {
     padding-left: 10px;
     padding-right: 5px;
 }
+.pagination-lg>li>a {
+    padding: 6px 12px;
+    line-height: 1;
+}

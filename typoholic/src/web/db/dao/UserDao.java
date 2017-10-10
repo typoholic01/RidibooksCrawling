@@ -1,20 +1,17 @@
 package web.db.dao;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import web.db.vo.Ridibook;
-import web.view.util.Pagination;
+import web.db.vo.User;
 
 @Repository
-public class RidibooksDao {
-	private static final Logger logger = LoggerFactory.getLogger(RidibooksDao.class);
-	private static final String ns = "Ridibook.";
+public class UserDao {
+	private static final Logger logger = LoggerFactory.getLogger(UserDao.class);
+	private static final String ns = "Users.";
 	
 	@Autowired
 	SqlSession session;	
@@ -22,29 +19,19 @@ public class RidibooksDao {
 	/*************************************************
 	 * 					CREATE
 	 * ***********************************************/
-	public boolean insertRidibook(Ridibook ridibook) {
+	public boolean insertUser(User user) {
 		logger.info("진입");
 		
-		return session.insert(ns+"insertRidibook", ridibook) > 0 ? true:false;
+		return session.insert(ns+"insertUser", user) > 0 ? true:false;
 	}
 	
 
 	/*************************************************
 	 * 					READ
 	 * ***********************************************/
-	public int getTotalBook() {
+	public int getUser(User user) {
 		logger.info("진입");
-		return session.selectOne(ns+"getTotalBook");
-	}
-	
-	/* SORTING */
-	public List<Ridibook> getRidibookListOrderByClapDESC(Pagination pagination) {
-		logger.info("진입");
-		return session.selectList(ns+"getRidibookListOrderByClapDESC",pagination);
-	}
-	public List<Ridibook> getRidibookListOrderByClapASC() {
-		logger.info("진입");
-		return session.selectList(ns+"getRidibookListOrderByClapASC");
+		return session.selectOne(ns+"getUser", user);
 	}
 	
 
@@ -57,4 +44,10 @@ public class RidibooksDao {
 	/*************************************************
 	 * 					DELETE
 	 * ***********************************************/
+	public boolean deleteUser(User user) {
+		logger.info("진입");
+		
+		return session.delete(ns+"deleteUser", user) > 0 ? true:false;
+	}
+
 }
