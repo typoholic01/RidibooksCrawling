@@ -4,9 +4,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
 	<div class="row main col-sm-12">
-		<h1 class="text-success text-center">회원 가입에 성공하셨습니다!</h1>	
-		<form action="${pageContext.request.contextPath }/user/login" style="text-align: -webkit-center;">
-		<button type="submit" class="btn btn-success" >로그인으로</button>
+		<h1 class="text-success text-center">로그인에 성공하셨습니다!</h1>	
+		<form action="${pageContext.request.contextPath }" style="text-align: -webkit-center;">
+		<button type="submit" class="btn btn-success" >메인으로</button>
 		</form>
 	</div>
 </div>

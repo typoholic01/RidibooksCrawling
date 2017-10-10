@@ -30,7 +30,7 @@ public class UserService {
 	/*************************************************
 	 * 					READ
 	 * ***********************************************/
-	public int getUser(User user) {
+	public User getUser(User user) {
 		logger.info("진입");
 		return dao.getUser(user);
 	}

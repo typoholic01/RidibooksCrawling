@@ -1,9 +1,13 @@
 package web.db.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -21,18 +25,19 @@ public class UserController {
 	/*************************************************
 	 * 					CREATE
 	 * ***********************************************/
-	//글쓰기 화면
+	//회원가입 화면
 	@RequestMapping(value= "/user/account",method=RequestMethod.GET)
-	public String write() {
+	public String account() {
 		logger.info("진입");
 		
 		
 		
 		return "userAccount.tiles";
 	}
-	//글쓰기 기능
+	
+	//회원가입 기능
 	@RequestMapping(value= "/user/account",method=RequestMethod.POST)
-	public String writeAf(User user) {
+	public String accountAf(User user) {
 		logger.info("진입");
 		
 		logger.info(user.toString());
@@ -47,6 +52,31 @@ public class UserController {
 	/*************************************************
 	 * 					READ
 	 * ***********************************************/
+	//로그인 화면
+	@RequestMapping(value= "/user/login",method=RequestMethod.GET)
+	public String login() {
+		logger.info("진입");
+		
+		
+		
+		return "userLogin.tiles";
+	}
+	//로그인 기능
+	@RequestMapping(value= "/user/login",method=RequestMethod.POST)
+	public String loginAf(User user, HttpServletRequest req) {
+		logger.info("진입");		
+		logger.info(user.toString());
+		
+		//init
+		User login;
+		HttpSession session;
+		
+		login = serv.getUser(user);
+		session = req.getSession();
+		session.setAttribute("login", login);
+		
+		return "userLoginSuccess.tiles";
+	}
 	
 	/*************************************************
 	 * 					UPDATE

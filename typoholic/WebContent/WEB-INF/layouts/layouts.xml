@@ -30,9 +30,18 @@
 <definition name="userAccount.tiles" extends="main.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/user/account.jsp"/>
 </definition>
-<!-- UserAccount -->
+<!-- UserAccountSuccess -->
 <definition name="userAccountSuccess.tiles" extends="main.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/user/accountSuccess.jsp"/>
+</definition>
+
+<!-- UserLogin -->
+<definition name="userLogin.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/user/login.jsp"/>
+</definition>
+<!-- UserLoginSuccess -->
+<definition name="userLoginSuccess.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/user/loginSuccess.jsp"/>
 </definition>
 
 
