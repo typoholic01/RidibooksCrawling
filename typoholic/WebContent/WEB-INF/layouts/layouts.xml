@@ -30,6 +30,10 @@
 <definition name="userAccount.tiles" extends="main.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/user/account.jsp"/>
 </definition>
+<!-- UserAccount -->
+<definition name="userAccountSuccess.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/user/accountSuccess.jsp"/>
+</definition>
 
 
 </tiles-definitions>

@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>    
     <% request.setCharacterEncoding("UTF-8"); %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="${pageContext.request.contextPath }/js/password-confirm.js"></script>
 
 <div class="container">
 	<div class="row main col-sm-4 col-sm-offset-4">

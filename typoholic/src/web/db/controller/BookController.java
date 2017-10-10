@@ -24,7 +24,7 @@ public class BookController {
 	@Autowired
 	RidibookService serv;
 	
-	@RequestMapping(value="/book/",method=RequestMethod.GET)
+	@RequestMapping(value="/book",method=RequestMethod.GET)
 	public String book(Model model, HttpServletRequest req) {
 		logger.info("book");
 		//init
@@ -52,7 +52,7 @@ public class BookController {
 		return "booklist.tiles";
 	}
 
-	@RequestMapping(value="/book/json/",method=RequestMethod.GET)
+	@RequestMapping(value="/book/json",method=RequestMethod.GET)
 	public @ResponseBody List<Ridibook> ridibooksPut(HttpServletRequest req) {
 		logger.info("ridibooksPut");
 		//init

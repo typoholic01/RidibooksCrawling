@@ -25,7 +25,7 @@ public class RidibookController {
 	@Autowired
 	RidibookService serv;
 	
-	@RequestMapping(value="/ridibooks/crawling/",method=RequestMethod.GET)
+	@RequestMapping(value="/ridibooks/crawling",method=RequestMethod.GET)
 	public String crawling(Model model) throws IOException {
 		logger.info("crawling");
 		BestFantasy ctrl = new BestFantasy();
