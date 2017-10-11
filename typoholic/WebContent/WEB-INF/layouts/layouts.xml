@@ -43,6 +43,10 @@
 <definition name="userLoginSuccess.tiles" extends="main.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/user/loginSuccess.jsp"/>
 </definition>
+<!-- UserLogoutSuccess -->
+<definition name="userLogoutSuccess.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/user/logoutSuccess.jsp"/>
+</definition>
 
 
 </tiles-definitions>

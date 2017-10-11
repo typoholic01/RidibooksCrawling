@@ -86,6 +86,19 @@ public class UserController {
 	/*************************************************
 	 * 					DELETE
 	 * ***********************************************/
+	//로그인 기능
+	@RequestMapping(value= "/user/logout",method=RequestMethod.GET)
+	public String logout(HttpServletRequest req) {
+		logger.info("진입");
+		
+		//init
+		HttpSession session;
+		
+		session = req.getSession();
+		session.invalidate();
+		
+		return "userLogoutSuccess.tiles";
+	}
 	
 	/************************************************************
 	 * 							Util Method 

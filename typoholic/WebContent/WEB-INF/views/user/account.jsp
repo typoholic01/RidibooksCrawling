@@ -13,7 +13,7 @@
               	</div>
            </div> 
 		<div class="main-login main-center">
-			<form class="form-horizontal" method="post" action="./">
+			<form class="form-horizontal" method="post" action="account">
 
 				<div class="form-group">
 					<label for="email" class="cols-sm-2 control-label">이메일</label>
@@ -29,7 +29,7 @@
 					<label for="nickname" class="cols-sm-2 control-label">별명</label>
 					<div class="cols-sm-10">
 						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+							<span class="input-group-addon" style="    padding: 6px 13.5px;"><i class="fa fa-user fa" aria-hidden="true"></i></span>
 							<input type="text" class="form-control" name="nickname" id="nickname" placeholder="별명을 입력해주세요"/>
 						</div>
 					</div>

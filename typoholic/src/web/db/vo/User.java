@@ -8,12 +8,19 @@ import org.apache.ibatis.type.Alias;
 public class User implements Serializable {
 	private static final long serialVersionUID = -7935894412001241428L;
 	
+	private int seq;
 	private String email;
 	private String nickname;
 	private String password;
 	private int auth;
 	private int status;
 	
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -44,11 +51,12 @@ public class User implements Serializable {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	
 	@Override
 	public String toString() {
-		return "User [email=" + email + ", nickname=" + nickname + ", password=" + password + ", auth=" + auth
-				+ ", status=" + status + "]";
+		return "User [seq=" + seq + ", email=" + email + ", nickname=" + nickname + ", password=" + password + ", auth="
+				+ auth + ", status=" + status + "]";
 	}
+	
+	
 
 }

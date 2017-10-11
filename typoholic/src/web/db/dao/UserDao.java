@@ -47,7 +47,17 @@ public class UserDao {
 	public boolean deleteUser(User user) {
 		logger.info("진입");
 		
-		return session.delete(ns+"deleteUser", user) > 0 ? true:false;
+		//init
+		int n = 0;
+		
+		try {
+			n = session.delete(ns+"deleteUser", user);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		
+		
+		return n > 0 ? true:false;
 	}
 
 }

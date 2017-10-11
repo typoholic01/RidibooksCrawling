@@ -19,7 +19,7 @@
 	<!-- 유저 정보 가져오기 -->
 	<select id="getUser" resultType="User" parameterType="User">
 		SELECT 
-			email, nickname, auth, status
+			seq, email, nickname, auth, status
 		FROM Users
 		WHERE email = #{email}
 		AND password = SHA2(#{password}, 256)
