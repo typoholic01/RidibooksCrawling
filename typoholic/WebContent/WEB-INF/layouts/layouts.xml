@@ -51,5 +51,12 @@
 	<put-attribute name="main" value="/WEB-INF/views/user/logoutSuccess.jsp"/>
 </definition>
 
+<!--********************  
+		에러 페이지
+************************-->
+<!-- errorLogin -->
+<definition name="errorLogin.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/error/errorLogin.jsp"/>
+</definition>
 
 </tiles-definitions>

@@ -8,7 +8,7 @@
 
 
 <!-- list-style -->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/list-style.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/list-style.css" />
 
 <!-- body -->
 <div class="container">
@@ -50,7 +50,15 @@
 </div>
 </div>
 
-<!-- 페이징 -->
+
+    <!-- 버튼 목록 -->
+	<div class="button-group col-sm-12" style="text-align: -webkit-right;">
+		<div class="arc-comment">
+			<button type="button" class="btn btn-primary" onclick="location.href='${boardUrl }/write.do'"><i class="fa fa-comments"></i> 글쓰기</button>			
+		</div>
+	</div>
+
+	<!-- 페이징 -->
     <div style="text-align: center;">
     <ul class="pagination pagination-lg">
     	<!-- 10페이지 이전 -->
@@ -105,10 +113,4 @@
 	</ul>
     </div>
     
-    <!-- 버튼 목록 -->
-	<div class="button-group col-sm-12" style="text-align: -webkit-right;">
-		<div class="arc-comment">
-			<a href="${boardUrl }/write.do" title="Comment"><i class="fa fa-comments"></i> 글쓰기</a>
-		</div>
-	</div>
-	</div>
+</div>

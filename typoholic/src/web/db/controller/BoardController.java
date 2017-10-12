@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import web.db.service.PostService;
 import web.db.vo.Post;
 import web.db.vo.QueryPost;
+import web.db.vo.User;
 import web.view.util.FileUpload;
 import web.view.util.Pagination;
 
@@ -36,12 +38,24 @@ public class BoardController {
 	 * ***********************************************/
 	//글쓰기 화면
 	@RequestMapping(value= "/{boardUrl}/write.do",method=RequestMethod.GET)
-	public String write(@PathVariable String boardUrl, Model model) {
+	public String write(@PathVariable String boardUrl, HttpServletRequest req) {
 		logger.info("/{}/write.do",boardUrl);
 		
+		//init
+		HttpSession session;
+		User login;
+		
+		session = req.getSession();
+		
+		login = (User) session.getAttribute("login");
+		
+		if (login == null) {
+			return "errorLogin.tiles";
+		} else {
+			return "write.tiles";			
+		}
 		
 		
-		return "write.tiles";
 	}
 	
 	//글쓰기 기능
@@ -84,10 +98,10 @@ public class BoardController {
 	 * 					READ
 	 * ***********************************************/
 	//리스트 화면
-	@RequestMapping(value="/{boardUrl}",method=RequestMethod.GET)
+	@RequestMapping(value="/{boardUrl}",method=RequestMethod.GET, produces="text/html")
 	public String list(@PathVariable String boardUrl, HttpServletRequest req, Model model) {
 		logger.info("/{}",boardUrl);
-		
+
 		//init
 		List<Post> postList;
 		QueryPost query;
@@ -115,7 +129,7 @@ public class BoardController {
 	}
 
 	//디테일 화면
-	@RequestMapping(value="/{boardUrl}/{postSeq}",method=RequestMethod.GET)
+	@RequestMapping(value="/{boardUrl}/{postSeq}",method=RequestMethod.GET, produces="text/html")
 	public String detail(@PathVariable String boardUrl, @PathVariable int postSeq, HttpServletRequest req, Model model) {
 		logger.info("/{}/{}", boardUrl, postSeq);
 		//init

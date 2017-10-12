@@ -14,8 +14,8 @@
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 	
 	<!-- 리소스 매핑 -->
-	<resources location="/WEB-INF/resources/js/" mapping="/js/**"/>
-	<resources location="/WEB-INF/resources/css/" mapping="/css/**"/>
+	<resources location="/WEB-INF/resources/js/" mapping="/resources/js/**"/>
+	<resources location="/WEB-INF/resources/css/" mapping="/resources/css/**"/>
 	
 	<!-- View Mapping -->
 <!-- 	<beans:bean id="viewResolver" 
