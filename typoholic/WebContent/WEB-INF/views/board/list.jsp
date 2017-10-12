@@ -108,7 +108,7 @@
     <!-- 버튼 목록 -->
 	<div class="button-group col-sm-12" style="text-align: -webkit-right;">
 		<div class="arc-comment">
-			<a href="./write.do" title="Comment"><i class="fa fa-comments"></i> 글쓰기</a>
+			<a href="${boardUrl }/write.do" title="Comment"><i class="fa fa-comments"></i> 글쓰기</a>
 		</div>
 	</div>
 	</div>

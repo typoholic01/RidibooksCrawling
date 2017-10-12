@@ -7,24 +7,24 @@
 	<!-- getTotalCount -->
 	<select id="getTotalBook" resultType="Integer">
 		SELECT count(link)
-		FROM RIDIBOOKS
+		FROM ridibooks
 	</select>
 	
 	<!-- SortingTable -->
 	<select id="getRidibookListOrderByClapDESC" resultType="Ridibook" parameterType="web.view.util.Pagination">
 		SELECT category, link, cover, title, author, star * starredPerson "clap"
-		FROM RIDIBOOKS
+		FROM ridibooks
 		ORDER BY clap DESC
 		LIMIT #{startArticle}, #{articleLimit}
 	</select>
 	<select id="getRidibookListOrderByClapASC" resultType="Ridibook">
 		SELECT category, link, cover, title, author, star * starredPerson "clap"
-		FROM RIDIBOOKS
+		FROM ridibooks
 		ORDER BY clap ASC
 	</select>	
 	
 	<insert id="insertRidibook" parameterType="Ridibook">
-		INSERT INTO RIDIBOOKS(category, link, cover, title, author, star, starredPerson)
+		INSERT INTO ridibooks(category, link, cover, title, author, star, starredPerson)
 		VALUES(#{category}, #{link}, #{cover}, #{title}, #{author}, #{star}, #{starredPerson})	
 		ON DUPLICATE KEY UPDATE star=#{star}, starredPerson=#{starredPerson}	
 	</insert>

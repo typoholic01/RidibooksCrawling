@@ -7,7 +7,7 @@
 	<!-- 						CREATE 						-->
 	<!-- 유저 입력 -->
 	<insert id="insertUser" parameterType="User" useGeneratedKeys="false">
-		INSERT INTO Users(
+		INSERT INTO users(
 			email, nickname, password
 		)
 		VALUES(
@@ -20,7 +20,7 @@
 	<select id="getUser" resultType="User" parameterType="User">
 		SELECT 
 			seq, email, nickname, auth, status
-		FROM Users
+		FROM users
 		WHERE email = #{email}
 		AND password = SHA2(#{password}, 256)
 		AND status = 1
@@ -30,7 +30,7 @@
 	
 	<!-- 						DELETE 						-->
 	<update id="deleteUser" parameterType="User">
-		UPDATE Users
+		UPDATE users
 		SET status = 0
 		WHERE email = #{email}
 		AND password = SHA2(#{password}, 256)

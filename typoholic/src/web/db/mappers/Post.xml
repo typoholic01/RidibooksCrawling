@@ -7,11 +7,11 @@
 	<!-- 						CREATE 						-->
 	<!-- 게시물 입력 -->
 	<insert id="insertPost" parameterType="Post" useGeneratedKeys="false">
-		INSERT INTO Posts(
+		INSERT INTO posts(
 			boardUrl,groupNo,seq,userId,title,content
 		)
 		VALUES(
-			#{boardUrl}, nextval('postSeq'), currval('postSeq'), #{userId}, #{title}, #{content}
+			#{boardUrl}, nextval('postseq'), currval('postseq'), #{userId}, #{title}, #{content}
 		)
 	</insert>
 
@@ -20,7 +20,7 @@
 	<select id="getPostList" resultType="Post" parameterType="QueryPost">
 		SELECT 
 			depth,seq,status,userId,title,content,readCount,createAt
-		FROM Posts
+		FROM posts
 		WHERE boardUrl = #{boardUrl}
 		AND status = 1
 		ORDER BY groupNo DESC, depth ASC
@@ -31,21 +31,21 @@
 	<select id="getPost" resultType="Post" parameterType="Integer">
 		SELECT 
 			depth,seq,status,userId,title,content,readCount,createAt
-		FROM Posts
+		FROM posts
 		WHERE seq = #{seq}
 	</select>
 	
 	<!-- 총 게시물 수 가져오기 -->
 	<select id="getTotalPost" parameterType="String" resultType="Integer">
 		SELECT COUNT(seq)
-		FROM Posts
+		FROM posts
 		WHERE boardUrl = #{boardUrl}
 		AND status = 1
 	</select>
 	
 	<!-- Update -->
 	<update id="updatePost" parameterType="Post">
-		UPDATE Posts
+		UPDATE posts
 		SET title = #{title},
 			content = #{content}
 		WHERE boardUrl = #{boardUrl}
@@ -54,7 +54,7 @@
 	
 	<!-- 						DELETE 						-->
 	<update id="deletePost" parameterType="Integer">
-		UPDATE Posts
+		UPDATE posts
 		SET status = 0
 		WHERE seq = #{seq}
 	</update>

@@ -52,6 +52,12 @@
 	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="requestContextAttribute" value="requestContext"/>
 		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
-	</beans:bean>
+	</beans:bean>	
+	
+	<!-- MultipartResolver 설정 -->
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <beans:property name="maxUploadSize" value="1000000000" />
+        <beans:property name="maxInMemorySize" value="1000000000" />
+    </beans:bean>	
 	
 </beans:beans>

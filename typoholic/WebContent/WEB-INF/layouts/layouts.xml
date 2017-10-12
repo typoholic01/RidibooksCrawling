@@ -24,6 +24,9 @@
 <definition name="board.tiles" extends="main.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/board/list.jsp"/>
 </definition>
+<definition name="write.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/board/write.jsp"/>
+</definition>
 
 <!-- User -->
 <!-- UserAccount -->
