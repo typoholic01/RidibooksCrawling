@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/list-style.css" />
 
 <!-- body -->
-<div class="container">
 <h2 class="category-title">${boardName }</h2>
 
 <div class="row">
@@ -38,7 +37,7 @@
       <tr>
         <td>${post.seq }</td>
         <td>
-        	<a href="./detail.do?seq=${post.seq }&page=${pagination.currPage}">${post.title }</a>
+        	<a href="./${boardUrl }/${post.seq }?page=${pagination.currPage}">${post.title }</a>
         </td>
         <td>${post.userId }</td>
         <td>${fn:substring(post.createAt,0,10) }</td>
@@ -113,4 +112,3 @@
 	</ul>
     </div>
     
-</div>

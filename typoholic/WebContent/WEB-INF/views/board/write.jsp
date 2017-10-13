@@ -6,7 +6,6 @@
 <%@ include file="head.jsp" %>
 
 <form action="./write.do" method="POST" enctype="multipart/form-data">
-<div class="container">
 	<div class="row">
 		<div class="col-md-9">
 			<div class="form-group"> <!-- userId field -->
@@ -41,8 +40,4 @@
 			
 		</div>
 	</div>
-</div>
-
-	
-	
 </form>

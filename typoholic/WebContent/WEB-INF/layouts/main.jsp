@@ -15,7 +15,9 @@
 <!-- 상단메뉴영역 -->
 <tiles:insertAttribute name="navbar"/>
 <!-- 안에콘텐츠영역 -->
-<tiles:insertAttribute name="main"/>
+<div class="container">
+	<tiles:insertAttribute name="main"/>
+</div>
 <!-- 푸터영역 -->
 <tiles:insertAttribute name="footer"/>
 </body>

@@ -14,6 +14,6 @@
 <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
 <!-- 							User Files 					 -->
-<script type="text/javascript" src='${pageContext.request.contextPath }/js/write.js' ></script>
-<link rel="stylesheet" href='${pageContext.request.contextPath }/css/write.css' />
+<script type="text/javascript" src='${pageContext.request.contextPath }/resources/js/write.js' ></script>
+<link rel="stylesheet" href='${pageContext.request.contextPath }/resources/css/write.css' />
 </head>

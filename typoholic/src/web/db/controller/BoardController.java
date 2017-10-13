@@ -108,7 +108,7 @@ public class BoardController {
 		Pagination pagination;
 		
 		//페이징
-		pagination = new Pagination(getTotalPost(boardUrl), getCurrPage(req));
+		pagination = new Pagination(getTotalPost(boardUrl), getParam(req, "page"));
 
 		//질의 설정
 		query = new QueryPost();
@@ -135,14 +135,11 @@ public class BoardController {
 		//init
 		Pagination pagination;
 		List<Post> bbsList;
-		Post bbs;
+		Post post;
 		QueryPost query;
 
 		//페이징
-		pagination = new Pagination(getTotalPost(boardUrl), getCurrPage(req));
-		
-		//질의 설정
-		postSeq = Integer.parseInt(req.getParameter("seq"));
+		pagination = new Pagination(getTotalPost(boardUrl), getParam(req,"page"));		
 		
 		query = new QueryPost();
 		query.setBoardUrl(boardUrl);
@@ -151,28 +148,15 @@ public class BoardController {
 		query.setArticleLimit(pagination.getArticleLimit());
 		
 		//DB 데이터
-		bbs = serv.getPost(postSeq);
+		post = serv.getPost(postSeq);
 		bbsList = serv.getPostList(query);
 		
 		//요소 추가
 		model.addAttribute("bbsList", bbsList);
 		model.addAttribute("pagination", pagination);
-		model.addAttribute("boardSeq", boardUrl);
-		model.addAttribute("bbs", bbs);
-		
-//		//매핑
-//		if (boardUrl.equals("notice")) {
-//			logger.info("noReply");
-//			//댓글 없는 곳
-//			return "noReplyDetail.tiles";
-//			
-//		} else {
-//			logger.info("Reply");
-//			//댓글 있는 곳
-//			return "mainBbsDetail.tiles";
-//		}
+		model.addAttribute("post", post);
 
-		return "mainBbsDetail.tiles";
+		return "detail.tiles";
 	}
 	
 	/*************************************************
@@ -235,13 +219,13 @@ public class BoardController {
 	/************************************************************
 	 * 							Util Method 
 	 * **********************************************************/
-	private int getCurrPage(HttpServletRequest req) {
+	private int getParam(HttpServletRequest req, String param) {
 		int currPage;
 		
-		if (req.getParameter("page") == null) {
+		if (req.getParameter(param) == null) {
 			currPage = 1;
 		} else {
-			currPage = Integer.parseInt(req.getParameter("page"));
+			currPage = Integer.parseInt(req.getParameter(param));
 		}
 		
 		return currPage;
