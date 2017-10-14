@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -97,6 +98,31 @@ public class BoardController {
 	/*************************************************
 	 * 					READ
 	 * ***********************************************/
+	//JSON리스트
+	@RequestMapping(value="/json/{boardUrl}",method=RequestMethod.GET, produces="application/json")
+	public @ResponseBody List<Post> jsonList(@PathVariable String boardUrl, HttpServletRequest req) {
+		logger.info("/json/{}",boardUrl);
+
+		//init
+		List<Post> postList;
+		QueryPost query;
+		Pagination pagination;
+		
+		//페이징
+		pagination = new Pagination(getTotalPost(boardUrl), getParam(req, "page"));
+
+		//질의 설정
+		query = new QueryPost();
+		query.setBoardUrl(boardUrl);
+		query.setStartArticle(pagination.getStartArticle());
+		query.setEndArticle(pagination.getEndArticle());
+		query.setArticleLimit(pagination.getArticleLimit());
+		
+		//받아오기
+		postList = serv.getPostList(query);
+		
+		return postList;
+	}
 	//리스트 화면
 	@RequestMapping(value="/{boardUrl}",method=RequestMethod.GET, produces="text/html")
 	public String list(@PathVariable String boardUrl, HttpServletRequest req, Model model) {

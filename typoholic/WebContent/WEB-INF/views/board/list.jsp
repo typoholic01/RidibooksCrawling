@@ -15,13 +15,57 @@ body > div > h2.category-title {
     padding-left: 0.3em;
 }
 </style>
+<!-- Ajax -->
+<script type="text/javascript">
+$(document).ready(function() {
+	getList();
+});
+function getList() {
+	//페이지 초기화
+	var page = '${page}';
+	if (page == '') {
+		page = '1';
+	}
+	
+	$.ajax({
+		type: 'GET',
+		url: '../json/${boardUrl}',
+		data: {
+			"page" : page
+		},		
+		async: true, 
+		success: function(data) {
+			console.log(data);
+			
+ 			$.each(data, function(index, item) {
+ 				console.log(data[index]);
+  				//댓글 만들기
+ 				$('#postList > tbody').append(setHtml(data[index]));
+			}); 
+		}	
+	});
+	
+}
+function setHtml(post) {
+	var html = '<tr>'
+					+'<td>'+post.seq+'</td>'
+					+'<td>'
+						+'<a href="./'+post.seq+'?page=${pagination.currPage}">'+post.title+'</a>'
+					+'</td>'
+					+'<td>'+post.userId+'</td>'
+					+'<td>'+post.createAt+'</td>'
+				+'</tr>';
+	
+	return html;
+}
+</script>
 <!-- body -->
 <h2 class="category-title">${boardName }</h2>
 
 <div class="row">
 <div class="col-sm-12">
 <div class="table-responsive">          
-  <table class="table table-hover table-bordered">
+  <table id="postList" class="table table-hover table-bordered">
   	<colgroup>
   		<col class="col-sm-1" />
   		<col class="col-sm-7" />
