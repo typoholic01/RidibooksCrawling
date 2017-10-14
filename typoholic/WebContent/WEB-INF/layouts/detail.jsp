@@ -15,12 +15,10 @@
 <!-- 상단메뉴영역 -->
 <tiles:insertAttribute name="navbar"/>
 <!-- 안에콘텐츠영역 -->
-<div class="container-fluid">
-  <div class="row content">
-<tiles:insertAttribute name="main"/>
-<tiles:insertAttribute name="comment"/>
-<tiles:insertAttribute name="list"/>
-</div>
+<div class="container">
+	<tiles:insertAttribute name="main"/>
+	<tiles:insertAttribute name="comment"/>
+	<tiles:insertAttribute name="list"/>
 </div>
 <!-- 푸터영역 -->
 <tiles:insertAttribute name="footer"/>

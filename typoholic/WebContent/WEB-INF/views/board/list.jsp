@@ -9,7 +9,12 @@
 
 <!-- list-style -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/list-style.css" />
-
+<style>
+body > div > h2.category-title {
+    border-left: 3px solid steelblue;
+    padding-left: 0.3em;
+}
+</style>
 <!-- body -->
 <h2 class="category-title">${boardName }</h2>
 
@@ -53,7 +58,7 @@
     <!-- 버튼 목록 -->
 	<div class="button-group col-sm-12" style="text-align: -webkit-right;">
 		<div class="arc-comment">
-			<button type="button" class="btn btn-primary" onclick="location.href='${boardUrl }/write.do'"><i class="fa fa-comments"></i> 글쓰기</button>			
+			<button type="button" class="btn btn-primary" onclick="location.href='${boardUrl }/write'"><i class="fa fa-comments"></i> 글쓰기</button>			
 		</div>
 	</div>
 

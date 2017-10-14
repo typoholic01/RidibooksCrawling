@@ -5,7 +5,7 @@
 
 <%@ include file="head.jsp" %>
 
-<form action="./write.do" method="POST" enctype="multipart/form-data">
+<form action="./write" method="POST" enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-sm-8 col-sm-offset-2">
 			<div class="form-group"> <!-- userId field -->

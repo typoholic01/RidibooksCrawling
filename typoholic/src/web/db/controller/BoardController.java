@@ -37,9 +37,9 @@ public class BoardController {
 	 * 					CREATE
 	 * ***********************************************/
 	//글쓰기 화면
-	@RequestMapping(value= "/{boardUrl}/write.do",method=RequestMethod.GET)
+	@RequestMapping(value= "/{boardUrl}/write",method=RequestMethod.GET)
 	public String write(@PathVariable String boardUrl, HttpServletRequest req) {
-		logger.info("/{}/write.do",boardUrl);
+		logger.info("/{}/write",boardUrl);
 		
 		//init
 		HttpSession session;
@@ -59,9 +59,9 @@ public class BoardController {
 	}
 	
 	//글쓰기 기능
-	@RequestMapping(value="/{boardUrl}/write.do",method=RequestMethod.POST)
+	@RequestMapping(value="/{boardUrl}/write",method=RequestMethod.POST)
 	public String writePost(@PathVariable String boardUrl, MultipartHttpServletRequest req, MultipartFile uploadFile, Model model) throws IOException {
-		logger.info("Post: /{}/write.do",boardUrl);
+		logger.info("Post: /{}/write",boardUrl);
 		//init
 		String path = "";
         String userId;

@@ -30,8 +30,14 @@
 <definition name="update.tiles" extends="main.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/board/update.jsp"/>
 </definition>
-<definition name="detail.tiles" extends="main.tiles">
+<!-- detail -->
+<definition name="detail.tiles" template="/WEB-INF/layouts/detail.jsp">
+	<put-attribute name="head" value="/WEB-INF/views/common/head.jsp"/>
+	<put-attribute name="navbar" value="/WEB-INF/views/common/navbar.jsp"/>
 	<put-attribute name="main" value="/WEB-INF/views/board/detail.jsp"/>
+	<put-attribute name="comment" value="/WEB-INF/views/board/comment.jsp"/>
+	<put-attribute name="list" value="/WEB-INF/views/board/list.jsp"/>
+	<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
 </definition>
 
 <!-- User -->
