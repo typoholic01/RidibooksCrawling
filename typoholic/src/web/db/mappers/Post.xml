@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
-<mapper namespace="web.db.dao.PostDao">
+<mapper namespace="Posts">
 
 	<!-- 						CREATE 						-->
 	<!-- 게시물 입력 -->
@@ -41,6 +41,12 @@
 		FROM posts
 		WHERE boardUrl = #{boardUrl}
 		AND status = 1
+	</select>
+	<!-- 게시자 아이디 가져오기 -->
+	<select id="getPostUserId" parameterType="Integer" resultType="String">
+		SELECT userId
+		FROM posts
+		WHERE seq = #{postSeq}
 	</select>
 	
 	<!-- Update -->

@@ -61,5 +61,9 @@
 <definition name="errorLogin.tiles" extends="main.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/error/errorLogin.jsp"/>
 </definition>
+<!-- errorMissingConnect -->
+<definition name="errorMissingConnect.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/error/errorMissingConnect.jsp"/>
+</definition>
 
 </tiles-definitions>

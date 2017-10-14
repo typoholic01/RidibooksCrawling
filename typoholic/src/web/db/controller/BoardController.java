@@ -206,13 +206,23 @@ public class BoardController {
 	public String deletePost(@PathVariable String boardUrl, @PathVariable int postSeq, HttpServletRequest req, RedirectAttributes redirectAttributes) {
 		logger.info("진입");
 		
-		//삭제
-		serv.deletePost(postSeq);
+		//init
+		User user;
+		String userId;
+		
+		//아이디 확인
+		user = (User) req.getSession().getAttribute("login");
+		userId = serv.getPostUserId(postSeq);
+		
+		if (user != null && userId.equals(user.getEmail()) == true) {
+			//삭제
+			serv.deletePost(postSeq);			
+		}
 		
 		//리다이렉트 전달값
 		redirectAttributes.addAttribute("page", req.getParameter("page"));
 		
-		return "redirect:/"+boardUrl;
+		return "redirect:/"+boardUrl;				
 		
 	}	
 	

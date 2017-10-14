@@ -62,12 +62,14 @@
 <div class="post-footer">
 	<div class="row">
 		<div class="col-sm-12 text-right">
+			<c:if test="${login.email == post.userId }">
 			<button type="button" class="btn btn-warning btn-xs" onclick="location.href='./update.do?seq=${bbs.bbsSeq }'">수정</button>
 			<!-- 삭제 -->
 			<form action="./${postSeq }?page=${param.page}" method="POST">
 				<input type="hidden" name="_method" value="DELETE">
             	<button type="submit" class="btn btn-danger btn-xs">삭제</button>
 			</form>
+			</c:if>
 		</div>
 	</div>
 </div>

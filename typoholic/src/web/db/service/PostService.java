@@ -2,7 +2,6 @@ package web.db.service;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +11,15 @@ import org.springframework.transaction.annotation.Transactional;
 import web.db.dao.PostDao;
 import web.db.vo.Post;
 import web.db.vo.QueryPost;
+import web.db.vo.User;
 
 @Service
 @Transactional
 public class PostService {
 	private static final Logger logger = LoggerFactory.getLogger(PostService.class);
-	private PostDao dao;
 	
 	@Autowired
-	SqlSession session;
+	PostDao dao;
 
 	/*************************************************
 	 * 					CREATE
@@ -28,7 +27,6 @@ public class PostService {
 
 	public boolean insertPost(Post post) {
 		logger.info("진입");
-		dao = session.getMapper(PostDao.class);
 		
 		return dao.insertPost(post);
 	} 
@@ -40,21 +38,18 @@ public class PostService {
 
 	public int getTotalPost(String boardUrl) {
 		logger.info("진입");
-		dao = session.getMapper(PostDao.class);
 		
 		return dao.getTotalPost(boardUrl);
 	} 
 
 	public Post getPost(int postSeq) {
 		logger.info("진입");
-		dao = session.getMapper(PostDao.class);
 		
 		return dao.getPost(postSeq);
 	} 
 	
 	public List<Post> getPostList(QueryPost query) {
 		logger.info("진입");
-		dao = session.getMapper(PostDao.class);
 		
 		return dao.getPostList(query);
 	}
@@ -65,7 +60,6 @@ public class PostService {
 
 	public boolean updatePost(Post post) {
 		logger.info("진입");
-		dao = session.getMapper(PostDao.class);
 		
 		return dao.updatePost(post);
 	}
@@ -75,9 +69,15 @@ public class PostService {
 	 * 					DELETE
 	 * ***********************************************/
 	public boolean deletePost(int postSeq) {
-		logger.info("진입");
-		dao = session.getMapper(PostDao.class);
+		logger.info("진입");		
 		
 		return dao.deletePost(postSeq);
+	}
+
+
+	public String getPostUserId(int postSeq) {
+		logger.info("진입");		
+		
+		return dao.getPostUserId(postSeq);
 	}
 }
