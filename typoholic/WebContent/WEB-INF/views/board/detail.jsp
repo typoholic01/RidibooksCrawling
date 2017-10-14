@@ -14,10 +14,10 @@
 	border: 1px solid lightgray;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    background-color: #eee;
+    background-color: aliceblue;
 }
 .post-body {
-	padding: 10px;
+	padding: 1.5em;
     border-left: 1px solid lightgray;
     border-right: 1px solid lightgray;
 }
@@ -26,7 +26,7 @@
     border: 1px solid lightgray;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    background-color: #eee;
+    background-color: aliceblue;
 }
 </style>
 
@@ -58,10 +58,9 @@
 </div>
 <div class="post-footer">
 	<div class="row">
-		<div class="col-sm-12">
-			<div class="post-content-inner" id="post-content-inner">
-				버튼 목록
-			</div>	
+		<div class="col-sm-12 text-right">
+			<button type="button" class="btn btn-warning btn-xs" onclick="location.href='./update.do?seq=${bbs.bbsSeq }'">수정</button>
+            <button type="button" class="btn btn-danger btn-xs" onclick="location.href='./delete.do?seq=${bbs.bbsSeq }&page=${param.page}'">삭제</button>
 		</div>
 	</div>
 </div>
