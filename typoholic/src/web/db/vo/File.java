@@ -1,6 +1,7 @@
 package web.db.vo;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 
 import org.apache.ibatis.type.Alias;
 
@@ -13,6 +14,7 @@ public class File implements Serializable {
 	private String originalFileName;
 	private String storedFileName;
 	private Long fileSize;
+	private String fileKBSize;
 	private String contentType;
 	private int downCount;
 	private String createAt;
@@ -23,8 +25,16 @@ public class File implements Serializable {
 	@Override
 	public String toString() {
 		return "File [fileSeq=" + fileSeq + ", originalFileName=" + originalFileName + ", storedFileName="
-				+ storedFileName + ", fileSize=" + fileSize + ", contentType=" + contentType + ", downCount="
-				+ downCount + ", createAt=" + createAt + ", postSeq=" + postSeq + "]";
+				+ storedFileName + ", fileSize=" + fileSize + ", fileKBSize=" + fileKBSize + ", contentType="
+				+ contentType + ", downCount=" + downCount + ", createAt=" + createAt + ", postSeq=" + postSeq + "]";
+	}
+
+	public String getFileKBSize() {
+		DecimalFormat dc = new DecimalFormat("###,###,###");
+		
+		fileKBSize = dc.format(fileSize / 1024);
+		
+		return fileKBSize;
 	}
 
 	public int getFileSeq() {

@@ -10,7 +10,7 @@
 <div class="post-header">
 	<div class="row">
 		<div class="col-sm-12">
-			<h3>${post.title }</h3>
+			<h3 style="margin-top:0px">${post.title }</h3>
 		</div>
 	</div>
 	<div class="row">
@@ -25,7 +25,11 @@
 	<div class="row">
 		<div class="col-sm-2" style="padding-top: 1em;margin-left: 0.5em;">
 			<c:forEach items="${fileList }" var="file">
-				<span class="file"><i class="fa fa-file" aria-hidden="true"></i> <a href="${pageContext.request.contextPath }/upload/file/${file.storedFileName }" download="${file.originalFileName }">${file.originalFileName }</a></span>
+				<span class="file">
+					<i class="fa fa-file" aria-hidden="true"></i>
+					<a href="${pageContext.request.contextPath }/upload/file/${file.storedFileName }" download="${file.originalFileName }">${file.originalFileName }</a>
+					 (${file.fileKBSize } kb)
+				</span>
 			</c:forEach>
 		</div>
 	</div>
