@@ -3,7 +3,7 @@ package web.db.dao;
 import java.util.List;
 
 import web.db.vo.Comment;
-import web.db.vo.QueryComment;
+import web.query.vo.QueryComment;
 
 public interface CommentDao {
 	

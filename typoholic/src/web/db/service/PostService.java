@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import web.db.dao.PostDao;
 import web.db.vo.Post;
-import web.db.vo.QueryPost;
 import web.db.vo.User;
+import web.query.vo.QueryPost;
 
 @Service
 @Transactional

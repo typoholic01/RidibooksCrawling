@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import web.db.vo.Post;
-import web.db.vo.QueryPost;
+import web.query.vo.QueryPost;
 
 @Repository
 public class PostDao {

@@ -1,4 +1,4 @@
-package web.db.vo;
+package web.query.vo;
 
 import java.io.Serializable;
 

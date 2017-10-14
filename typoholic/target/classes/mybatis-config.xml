@@ -11,5 +11,6 @@
 
 	<typeAliases>
 		<package name="web.db.vo" />
+		<package name="web.query.vo" />
 	</typeAliases>
 </configuration>

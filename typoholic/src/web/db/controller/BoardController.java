@@ -20,8 +20,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import web.db.service.PostService;
 import web.db.vo.Post;
-import web.db.vo.QueryPost;
 import web.db.vo.User;
+import web.query.vo.QueryPost;
 import web.view.util.FileUpload;
 import web.view.util.Pagination;
 
@@ -163,35 +163,41 @@ public class BoardController {
 	 * 					UPDATE
 	 * ***********************************************/
 	//글 수정하기
-	@RequestMapping(value="/{boardUrl}/update.do",method=RequestMethod.GET)
-	public String updateArticle(@PathVariable String boardUrl, HttpServletRequest req, Model model) {
-		logger.info("bbs/update");
+	@RequestMapping(value="/{boardUrl}/{postSeq}/update",method=RequestMethod.GET)
+	public String updatePostView(@PathVariable String boardUrl, @PathVariable int postSeq, HttpServletRequest req, Model model) {
+		logger.info("진입");
 		//init
-		Post bbs;
+		Post post;
 		
 		//DB get
-		bbs = serv.getPost(getSeq(req));
+		post = serv.getPost(postSeq);
 		
 		//요소 추가
-		model.addAttribute("bbs", bbs);
+		model.addAttribute("post", post);
 		
-		return "mainBbsUpdate.tiles";
+		return "update.tiles";
 	}
 	
 	//글 수정하기
-	@RequestMapping(value="/{boardUrl}/updateAf.do",method=RequestMethod.POST)
-	public String updateAfArticle(@PathVariable String boardUrl, Post post, Model model) {
-		logger.info("updateAfArticle");
+	@RequestMapping(value="/{boardUrl}/{postSeq}",method=RequestMethod.PUT)
+	public String updatePost(@PathVariable String boardUrl, @PathVariable int postSeq, Post post, HttpServletRequest req) {
+		logger.info("진입");
+
+		//init
+		User user;
+		String userId;
 		
 		//query Set
 		post.setBoardUrl(boardUrl);
+		post.setSeq(postSeq);		
 		
-		//DB set
-		try {
-			serv.updatePost(post);
-			
-		} catch (Exception e) {
-			logger.error(e.getMessage());
+		//아이디 확인
+		user = (User) req.getSession().getAttribute("login");
+		userId = serv.getPostUserId(postSeq);
+		
+		if (user != null && userId.equals(user.getEmail()) == true) {
+			//수정
+			serv.updatePost(post);		
 		}
 		
 		return  "redirect:/"+boardUrl;

@@ -49,7 +49,7 @@
 		WHERE seq = #{postSeq}
 	</select>
 	
-	<!-- Update -->
+	<!-- 						UPDATE 						-->
 	<update id="updatePost" parameterType="Post">
 		UPDATE posts
 		SET title = #{title},

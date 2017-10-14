@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import web.db.dao.CommentDao;
 import web.db.vo.Comment;
-import web.db.vo.QueryComment;
+import web.query.vo.QueryComment;
 
 @Service
 @Transactional

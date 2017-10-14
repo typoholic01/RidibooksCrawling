@@ -5,22 +5,23 @@
 
 <%@ include file="head.jsp" %>
 
-<form action="./write.do" method="POST" enctype="multipart/form-data">
+<form action="../${postSeq }" method="POST">
+	<input type="hidden" name="_method" value="PUT">
 	<div class="row">
 		<div class="col-sm-8 col-sm-offset-2">
 			<div class="form-group"> <!-- userId field -->
 				<label class="control-label " for="userId">아이디</label>
-				<input class="form-control" id="userId" name="userId" type="text" value="${login.email }" readonly="readonly"/>
+				<input class="form-control" id="userId" name="userId" type="text" value="${post.userId }" readonly="readonly"/>
 			</div>
 			
 			<div class="form-group"> <!-- "title" field -->
 				<label class="control-label " for="title">제목</label>
-				<input class="form-control" id="title" name="title" type="text"/>
+				<input class="form-control" id="title" name="title" type="text" value="${post.title }"/>
 			</div>
 			
 			<div class="form-group"> <!-- content field -->
 				<label class="control-label " for="content">내용</label>
-				<textarea class="form-control" cols="40" id="content" name="content" rows="10"></textarea>
+				<textarea class="form-control" cols="40" id="content" name="content" rows="10">${post.content }</textarea>
 			</div>
 			
 			<div class="form-group"> <!-- File field -->

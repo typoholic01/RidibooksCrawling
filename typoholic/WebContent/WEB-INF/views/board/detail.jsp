@@ -63,7 +63,10 @@
 	<div class="row">
 		<div class="col-sm-12 text-right">
 			<c:if test="${login.email == post.userId }">
-			<button type="button" class="btn btn-warning btn-xs" onclick="location.href='./update.do?seq=${bbs.bbsSeq }'">수정</button>
+			<!-- 수정 -->
+			<form action="./${postSeq }/update" method="GET">
+				<button type="submit" class="btn btn-warning btn-xs">수정</button>
+			</form>
 			<!-- 삭제 -->
 			<form action="./${postSeq }?page=${param.page}" method="POST">
 				<input type="hidden" name="_method" value="DELETE">
