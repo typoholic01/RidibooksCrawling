@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import web.db.dao.FileDao;
 import web.db.dao.PostDao;
+import web.db.dao.PostFileDao;
+import web.db.vo.File;
 import web.db.vo.Post;
-import web.db.vo.User;
 import web.query.vo.QueryPost;
 
 @Service
@@ -19,16 +21,27 @@ public class PostService {
 	private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 	
 	@Autowired
-	PostDao dao;
+	PostDao postDao;
+	
+	@Autowired
+	FileDao fileDao;
+	
+	@Autowired
+	PostFileDao postFileDao;
 
 	/*************************************************
 	 * 					CREATE
 	 * ***********************************************/
 
-	public boolean insertPost(Post post) {
+	public boolean insertPost(Post post, File file) {
 		logger.info("진입");
+		boolean b;
 		
-		return dao.insertPost(post);
+		b = postDao.insertPost(post);
+		fileDao.insertFile(file);
+		postFileDao.insertPostFile();
+		
+		return b;
 	} 
 
 
@@ -39,19 +52,19 @@ public class PostService {
 	public int getTotalPost(String boardUrl) {
 		logger.info("진입");
 		
-		return dao.getTotalPost(boardUrl);
+		return postDao.getTotalPost(boardUrl);
 	} 
 
 	public Post getPost(int postSeq) {
 		logger.info("진입");
 		
-		return dao.getPost(postSeq);
+		return postDao.getPost(postSeq);
 	} 
 	
 	public List<Post> getPostList(QueryPost query) {
 		logger.info("진입");
 		
-		return dao.getPostList(query);
+		return postDao.getPostList(query);
 	}
 	
 	/*************************************************
@@ -61,7 +74,7 @@ public class PostService {
 	public boolean updatePost(Post post) {
 		logger.info("진입");
 		
-		return dao.updatePost(post);
+		return postDao.updatePost(post);
 	}
 	
 	
@@ -71,13 +84,13 @@ public class PostService {
 	public boolean deletePost(int postSeq) {
 		logger.info("진입");		
 		
-		return dao.deletePost(postSeq);
+		return postDao.deletePost(postSeq);
 	}
 
 
 	public String getPostUserId(int postSeq) {
 		logger.info("진입");		
 		
-		return dao.getPostUserId(postSeq);
+		return postDao.getPostUserId(postSeq);
 	}
 }

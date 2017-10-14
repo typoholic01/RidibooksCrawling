@@ -3,8 +3,6 @@
     <% request.setCharacterEncoding("UTF-8"); %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@ include file="head.jsp" %>
-
 <form action="../${postSeq }" method="POST">
 	<input type="hidden" name="_method" value="PUT">
 	<div class="row">

@@ -1,6 +1,7 @@
 package web.db.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import web.db.service.FileService;
 import web.db.service.PostService;
+import web.db.vo.File;
 import web.db.vo.Post;
 import web.db.vo.User;
 import web.query.vo.QueryPost;
@@ -32,7 +35,10 @@ public class BoardController {
 	//http://springboot.tistory.com/25 예외처리
 	
 	@Autowired
-	PostService serv;
+	PostService postServ;
+	
+	@Autowired
+	FileService fileServ;
 	
 	/*************************************************
 	 * 					CREATE
@@ -64,6 +70,9 @@ public class BoardController {
 	public String writePost(@PathVariable String boardUrl, MultipartHttpServletRequest req, MultipartFile uploadFile, Model model) throws IOException {
 		logger.info("Post: /{}/write",boardUrl);
 		//init
+		FileUpload fileUpload;
+		Post post;
+		File file;
 		String path = "";
         String userId;
         String title;
@@ -71,13 +80,21 @@ public class BoardController {
         
         //init
         path = req.getSession().getServletContext().getRealPath("/") + "upload/file/"; //파일 저장경로
-        FileUpload fileUpload = new FileUpload(uploadFile, path);
-        Post post = new Post();
+        fileUpload = new FileUpload(uploadFile, path);
+        post = new Post();
+        file = new File();
         
         //listen
+        //post
 		userId = req.getParameter("userId");
 		title = req.getParameter("title");
 		content = req.getParameter("content");
+		
+		//file
+		file.setFileSize(uploadFile.getSize());
+		file.setContentType(uploadFile.getContentType());
+		file.setOriginalFileName(fileUpload.getOrgFileName());
+		file.setStoredFileName(fileUpload.getStoredFileName());
 		
 		//setup
 		post.setBoardUrl(boardUrl);
@@ -87,7 +104,7 @@ public class BoardController {
 		
 		logger.info(post.toString());
         
-		serv.insertPost(post);
+		postServ.insertPost(post,file);
 		
 		logger.info("insert Done");
 		
@@ -119,7 +136,7 @@ public class BoardController {
 		query.setArticleLimit(pagination.getArticleLimit());
 		
 		//받아오기
-		postList = serv.getPostList(query);
+		postList = postServ.getPostList(query);
 		
 		return postList;
 	}
@@ -144,7 +161,7 @@ public class BoardController {
 		query.setArticleLimit(pagination.getArticleLimit());
 		
 		//받아오기
-		postList = serv.getPostList(query);
+		postList = postServ.getPostList(query);
 		
 		//요소 추가
 		model.addAttribute("postList", postList);
@@ -163,9 +180,11 @@ public class BoardController {
 		List<Post> bbsList;
 		Post post;
 		QueryPost query;
+		List<File> fileList;
 
 		//페이징
-		pagination = new Pagination(getTotalPost(boardUrl), getParam(req,"page"));		
+		pagination = new Pagination(getTotalPost(boardUrl), getParam(req,"page"));
+		fileList = new ArrayList<>();
 		
 		query = new QueryPost();
 		query.setBoardUrl(boardUrl);
@@ -174,13 +193,15 @@ public class BoardController {
 		query.setArticleLimit(pagination.getArticleLimit());
 		
 		//DB 데이터
-		post = serv.getPost(postSeq);
-		bbsList = serv.getPostList(query);
+		post = postServ.getPost(postSeq);
+		bbsList = postServ.getPostList(query);
+		fileList = fileServ.getFileList(postSeq);
 		
 		//요소 추가
 		model.addAttribute("bbsList", bbsList);
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("post", post);
+		model.addAttribute("fileList", fileList);
 
 		return "detail.tiles";
 	}
@@ -196,7 +217,7 @@ public class BoardController {
 		Post post;
 		
 		//DB get
-		post = serv.getPost(postSeq);
+		post = postServ.getPost(postSeq);
 		
 		//요소 추가
 		model.addAttribute("post", post);
@@ -219,11 +240,11 @@ public class BoardController {
 		
 		//아이디 확인
 		user = (User) req.getSession().getAttribute("login");
-		userId = serv.getPostUserId(postSeq);
+		userId = postServ.getPostUserId(postSeq);
 		
 		if (user != null && userId.equals(user.getEmail()) == true) {
 			//수정
-			serv.updatePost(post);		
+			postServ.updatePost(post);		
 		}
 		
 		return  "redirect:/"+boardUrl;
@@ -244,11 +265,11 @@ public class BoardController {
 		
 		//아이디 확인
 		user = (User) req.getSession().getAttribute("login");
-		userId = serv.getPostUserId(postSeq);
+		userId = postServ.getPostUserId(postSeq);
 		
 		if (user != null && userId.equals(user.getEmail()) == true) {
 			//삭제
-			serv.deletePost(postSeq);			
+			postServ.deletePost(postSeq);			
 		}
 		
 		//리다이렉트 전달값
@@ -272,21 +293,9 @@ public class BoardController {
 		
 		return currPage;
 	}
-	
-	private int getSeq(HttpServletRequest req) {
-		int seq;
-		
-		if (req.getParameter("seq") == null) {
-			seq = 0;
-		} else {
-			seq = Integer.parseInt(req.getParameter("seq"));
-		}
-		
-		return seq;
-	}
 
 	private int getTotalPost(String boardUrl) {
-		return serv.getTotalPost(boardUrl);
+		return postServ.getTotalPost(boardUrl);
 	}
 
 }

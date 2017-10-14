@@ -1,0 +1,23 @@
+@charset "UTF-8";
+.post-header {
+	padding: 10px;
+	border: 1px solid lightgray;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: aliceblue;
+}
+.post-body {
+	padding: 1.5em;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+}
+.post-footer {
+	padding: 10px;
+    border: 1px solid lightgray;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: aliceblue;
+}
+.post-footer form {	
+    display: inline-block;
+}

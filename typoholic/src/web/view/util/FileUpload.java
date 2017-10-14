@@ -4,14 +4,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileUpload {
-	private static final Logger logger = LoggerFactory.getLogger(FileUpload.class);
-	
+	private static final Logger logger = LoggerFactory.getLogger(FileUpload.class);	
 	
 	private String storedFileName;
 	private String orgFileName;
@@ -21,20 +21,28 @@ public class FileUpload {
 	}
 
 	public FileUpload(MultipartFile uploadFile, String path) {
+		//init
+		File file;
         OutputStream out = null;
         byte[] bytes;
+        String ext;
 				
 		//file save
         if (!uploadFile.getOriginalFilename().equals("")) {
-			logger.info("upload file start");
-        	//이름 짓기
-			orgFileName = uploadFile.getOriginalFilename();
-			storedFileName = System.currentTimeMillis() + "_" + orgFileName;
-            
 			try {
+				logger.info("upload file start");
+	        	//이름 짓기
+				orgFileName = uploadFile.getOriginalFilename();
+				ext = orgFileName.substring(orgFileName.lastIndexOf('.'));
+				do {
+					storedFileName = UUID.randomUUID().toString().replace("-", "")+ext;
+		            file = new File(path + storedFileName);
+					
+					logger.info("저장된 파일 이름: {}",storedFileName);
+				} while (isFile(file));
+	            
 				bytes = uploadFile.getBytes();
 	            //파일 저장
-	            File file = new File(path + storedFileName);        
 	            out = new FileOutputStream(file);
 	            out.write(bytes);
 	            
@@ -73,5 +81,15 @@ public class FileUpload {
 
 	public void setOrgFileName(String orgFileName) {
 		this.orgFileName = orgFileName;
+	}
+	
+	private boolean isFile(File file) {
+		
+		if (file.exists()) {
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 }

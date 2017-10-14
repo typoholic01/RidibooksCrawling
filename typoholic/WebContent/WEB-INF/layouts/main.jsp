@@ -9,7 +9,15 @@
 <head>
 <title>layouts-tiles</title>
 <!-- (css, js)스타일 영역 -->
-<tiles:insertAttribute name="head"/>
+<!-- 							JQuery 					 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- 							Bootstrap 					 -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- 							font-awesome 					 -->
+<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
 </head>
 <body>
 <!-- 상단메뉴영역 -->

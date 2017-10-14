@@ -4,34 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
-<!-- Resources -->
-<%@ include file="head.jsp" %>
-
-<style>
-.post-header {
-	padding: 10px;
-	border: 1px solid lightgray;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    background-color: aliceblue;
-}
-.post-body {
-	padding: 1.5em;
-    border-left: 1px solid lightgray;
-    border-right: 1px solid lightgray;
-}
-.post-footer {
-	padding: 10px;
-    border: 1px solid lightgray;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    background-color: aliceblue;
-}
-.post-footer form {	
-    display: inline-block;
-}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/detail.css" />
 
 <!-- body -->
 <div class="post-header">
@@ -47,6 +20,13 @@
 		<div class="col-sm-4 col-sm-offset-4 text-right">
 			<span class="date" style="margin-right: 1em;"><i class="fa fa-clock-o"></i> ${post.createAt } </span>
 			<span class="hit"><i class="fa fa-eye"></i> 99</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-2" style="padding-top: 1em;margin-left: 0.5em;">
+			<c:forEach items="${fileList }" var="file">
+				<span class="file"><i class="fa fa-file" aria-hidden="true"></i> <a href="${pageContext.request.contextPath }/upload/file/${file.storedFileName }" download="${file.originalFileName }">${file.originalFileName }</a></span>
+			</c:forEach>
 		</div>
 	</div>
 </div>
