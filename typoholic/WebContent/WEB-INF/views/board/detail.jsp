@@ -28,6 +28,9 @@
     border-bottom-right-radius: 5px;
     background-color: aliceblue;
 }
+.post-footer form {	
+    display: inline-block;
+}
 </style>
 
 <!-- body -->
@@ -60,7 +63,11 @@
 	<div class="row">
 		<div class="col-sm-12 text-right">
 			<button type="button" class="btn btn-warning btn-xs" onclick="location.href='./update.do?seq=${bbs.bbsSeq }'">수정</button>
-            <button type="button" class="btn btn-danger btn-xs" onclick="location.href='./delete.do?seq=${bbs.bbsSeq }&page=${param.page}'">삭제</button>
+			<!-- 삭제 -->
+			<form action="./${postSeq }?page=${param.page}" method="POST">
+				<input type="hidden" name="_method" value="DELETE">
+            	<button type="submit" class="btn btn-danger btn-xs">삭제</button>
+			</form>
 		</div>
 	</div>
 </div>

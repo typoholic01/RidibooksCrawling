@@ -194,7 +194,7 @@ public class BoardController {
 			logger.error(e.getMessage());
 		}
 		
-		return  "redirect:/"+boardUrl+"/list.do";
+		return  "redirect:/"+boardUrl;
 	}
 	
 	
@@ -202,19 +202,19 @@ public class BoardController {
 	 * 					DELETE
 	 * ***********************************************/
 	//글 삭제하기
-	@RequestMapping(value="/{boardUrl}/delete.do",method=RequestMethod.GET)
-	public String deleteArticle(@PathVariable String boardUrl, HttpServletRequest req, RedirectAttributes redirectAttributes) {
-		logger.info("/bbs/delete");
+	@RequestMapping(value="/{boardUrl}/{postSeq}",method=RequestMethod.DELETE)
+	public String deletePost(@PathVariable String boardUrl, @PathVariable int postSeq, HttpServletRequest req, RedirectAttributes redirectAttributes) {
+		logger.info("진입");
 		
 		//삭제
-		serv.deletePost(getSeq(req));
+		serv.deletePost(postSeq);
 		
 		//리다이렉트 전달값
 		redirectAttributes.addAttribute("page", req.getParameter("page"));
 		
-		return "redirect:/"+boardUrl+"/list.do";
+		return "redirect:/"+boardUrl;
 		
-	}
+	}	
 	
 	/************************************************************
 	 * 							Util Method 
