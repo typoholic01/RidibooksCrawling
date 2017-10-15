@@ -23,7 +23,7 @@ function getPostList() {
 	
 	$.ajax({
 		type: 'GET',
-		url: '../json/${boardUrl}',
+		url: '${pageContext.request.contextPath }/json/${boardUrl}',
 		data: {
 			"page" : page
 		},		
@@ -33,7 +33,7 @@ function getPostList() {
 			
  			$.each(data, function(index, item) {
  				console.log(data[index]);
-  				//댓글 만들기
+  				//글 만들기
  				$('#postList > tbody').append(setPostHtml(data[index]));
 			}); 
 		}	
@@ -44,7 +44,7 @@ function setPostHtml(post) {
 	var html = '<tr>'
 					+'<td>'+post.seq+'</td>'
 					+'<td>'
-						+'<a href="./'+post.seq+'?page=${pagination.currPage}">'+post.title+'</a>'
+						+'<a href="${pageContext.request.contextPath }/${boardUrl}/'+post.seq+'?page=${pagination.currPage}">'+post.title+'</a>'
 					+'</td>'
 					+'<td>'+post.userId+'</td>'
 					+'<td>'+post.createAt+'</td>'
@@ -75,17 +75,7 @@ function setPostHtml(post) {
       </tr>
     </thead>
     <tbody>
- 	<!-- 				게시물 불러오기				 -->
- 	<c:forEach items="${postList }" var="post">
-      <tr>
-        <td>${post.seq }</td>
-        <td>
-        	<a href="/${pageContext.request.contextPath }/${boardUrl }/${post.seq }?page=${pagination.currPage}">${post.title }</a>
-        </td>
-        <td>${post.userId }</td>
-        <td>${fn:substring(post.createAt,0,10) }</td>
-      </tr>
-   	</c:forEach>      
+ 	<!-- 				게시물 불러오기				 -->   
     </tbody>
   </table>
   </div>
@@ -96,7 +86,7 @@ function setPostHtml(post) {
     <!-- 버튼 목록 -->
 	<div class="button-group col-sm-12" style="text-align: -webkit-right;">
 		<div class="arc-comment">
-			<button type="button" class="btn btn-primary" onclick="location.href='/${pageContext.request.contextPath }/${boardUrl }/write'"><i class="fa fa-comments"></i> 글쓰기</button>			
+			<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath }/${boardUrl }/write'"><i class="fa fa-comments"></i> 글쓰기</button>			
 		</div>
 	</div>
 
@@ -109,7 +99,7 @@ function setPostHtml(post) {
 	  		<li class="disabled"><a><i class="fa fa-angle-double-left"></i></a></li>	  	
 	  	</c:when>
 	  	<c:otherwise>
-	  		<li><a href="/${pageContext.request.contextPath }/${boardUrl }?page=${pagination.currPage - pagination.pageLimit }"><i class="fa fa-angle-double-left"></i></a></li>	 	  	
+	  		<li><a href="${pageContext.request.contextPath }/${boardUrl }?page=${pagination.currPage - pagination.pageLimit }"><i class="fa fa-angle-double-left"></i></a></li>	 	  	
 	  	</c:otherwise>
 	  </c:choose> 
 	  <!-- 1페이지 이전 -->
@@ -118,7 +108,7 @@ function setPostHtml(post) {
 	  		<li class="disabled"><a><i class="fa fa-angle-left"></i></a></li>	  	
 	  	</c:when>
 	  	<c:otherwise>
-	  		<li><a href="/${pageContext.request.contextPath }/${boardUrl }?page=${pagination.currPage - 1 }"><i class="fa fa-angle-left"></i></a></li>	 	  	
+	  		<li><a href="${pageContext.request.contextPath }/${boardUrl }?page=${pagination.currPage - 1 }"><i class="fa fa-angle-left"></i></a></li>	 	  	
 	  	</c:otherwise>
 	  </c:choose>
 	  <!-- 페이징 설정만큼 돌리기 -->
@@ -126,11 +116,11 @@ function setPostHtml(post) {
 	  	<c:choose>
 	  		<c:when test="${i == pagination.currPage }">
 	 			<li class="active">
-	 				<a href="/${pageContext.request.contextPath }/${boardUrl }?page=${i }">${i }</a>
+	 				<a href="${pageContext.request.contextPath }/${boardUrl }?page=${i }">${i }</a>
 	 			</li>	  		
 	  		</c:when>
 	  		<c:otherwise>
-	  			<li><a href="/${pageContext.request.contextPath }/${boardUrl }?page=${i }">${i }</a></li>	  		
+	  			<li><a href="${pageContext.request.contextPath }/${boardUrl }?page=${i }">${i }</a></li>	  		
 	  		</c:otherwise>
 	  	</c:choose>
 	  </c:forEach>
@@ -140,7 +130,7 @@ function setPostHtml(post) {
 	  		<li class="disabled"><a><i class="fa fa-angle-right"></i></a></li>	  	
 	  	</c:when>
 	  	<c:otherwise>
-	  		<li><a href="/${pageContext.request.contextPath }/${boardUrl }?page=${pagination.currPage + 1 }"><i class="fa fa-angle-right"></i></a></li>	 	  	
+	  		<li><a href="${pageContext.request.contextPath }/${boardUrl }?page=${pagination.currPage + 1 }"><i class="fa fa-angle-right"></i></a></li>	 	  	
 	  	</c:otherwise>
 	  </c:choose>
 	  <!-- 10페이지 이후 -->
@@ -149,7 +139,7 @@ function setPostHtml(post) {
 	  		<li class="disabled"><a><i class="fa fa-angle-double-right"></i></a></li>	  	
 	  	</c:when>
 	  	<c:otherwise>
-	  		<li><a href="/${pageContext.request.contextPath }/${boardUrl }?page=${pagination.currPage + pagination.pageLimit }"><i class="fa fa-angle-double-right"></i></a></li>	 	  	
+	  		<li><a href="${pageContext.request.contextPath }/${boardUrl }?page=${pagination.currPage + pagination.pageLimit }"><i class="fa fa-angle-double-right"></i></a></li>	 	  	
 	  	</c:otherwise>
 	  </c:choose>
 	</ul>
