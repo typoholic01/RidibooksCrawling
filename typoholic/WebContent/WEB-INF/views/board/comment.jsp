@@ -66,7 +66,7 @@ function setCommentHtml(comment) {
 	+'		</div>'
 	+'		<div class="col-sm-10">'
 	+'			<div class="row">'
-	+'				<strong>'+comment.userId+'</strong> <span class="text-muted">'+comment.createAt+'</span>'
+	+ isCorrectUser(comment)
 	+'			</div>'
 	+'			<div class="row">'
 	+'				<div class="comment-body">'
@@ -81,6 +81,38 @@ function setCommentHtml(comment) {
 	+'</div>';
 	
 	return html;
+}
+
+function isCorrectUser(comment) {
+	var html;
+	
+	if (comment.userId == '${login.email}') {
+		html = '<strong>'+comment.userId+' </strong>'
+				+'<span class="text-muted">'+comment.createAt+'</span>'
+				+'            	<button type="button" class="btn btn-danger btn-xs" onclick="deleteComment('+comment.commentSeq+')">삭제</button>';
+	} else {
+		html = '<strong>'+comment.userId+'</strong> <span class="text-muted">'+comment.createAt+'</span>';
+	}
+	return html;
+}
+
+/*****************************  
+ *			댓글 수정
+ *****************************/
+ 
+ 
+/*****************************  
+ *			댓글 삭제
+ *****************************/
+function deleteComment(commentSeq) {
+	$.ajax({
+		type: 'DELETE',
+		url: './${postSeq}/comment/'+commentSeq,
+		async: true, 
+		success: function(data) {
+			getCommentList();			
+		}	
+	});
 }
 
 /*****************************  

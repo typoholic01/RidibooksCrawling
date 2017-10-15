@@ -94,6 +94,17 @@ public class CommentController {
 	/*************************************************
 	 * 					DELETE
 	 * ***********************************************/
+	//글쓰기 기능
+	@RequestMapping(value="/{boardUrl}/{postSeq}/comment/{commentSeq}",method=RequestMethod.DELETE)
+	public @ResponseBody boolean deleteComment(@PathVariable int commentSeq, Comment comment) {
+		logger.info("진입");
+		//init
+		
+        //action
+		serv.deleteComment(commentSeq);
+		
+		return true;
+	}
 	
 
 

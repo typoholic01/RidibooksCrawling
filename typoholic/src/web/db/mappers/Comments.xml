@@ -53,7 +53,7 @@
 	<!-- 						DELETE 						-->
 	<update id="deleteComment" parameterType="Integer">
 		UPDATE comments
-		SET status = 0
+		SET status = 'delete'
 		WHERE commentSeq = #{commentSeq}
 	</update>
 </mapper>
