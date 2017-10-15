@@ -19,13 +19,13 @@ import web.db.service.RidibookService;
 import web.db.vo.Ridibook;
 
 @Controller
-public class RidibookController {
+public class CrawlingController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);	
 	
 	@Autowired
 	RidibookService serv;
 	
-	@RequestMapping(value="/ridibooks/crawling",method=RequestMethod.GET)
+	@RequestMapping(value="/crawling/ridibooks/fantasy",method=RequestMethod.GET)
 	public String crawling(Model model) throws IOException {
 		logger.info("crawling");
 		BestFantasy ctrl = new BestFantasy();
@@ -42,7 +42,7 @@ public class RidibookController {
 			}
 		}
 		
-		return "ridibooks/list";
+		return "booklist.tiles";
 	}
 
 }

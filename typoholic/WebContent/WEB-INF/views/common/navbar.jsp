@@ -2,6 +2,24 @@
     pageEncoding="UTF-8"%>    
     <% request.setCharacterEncoding("UTF-8"); %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!-- navbar 선택 스크립트 -->
+<script type="text/javascript">
+$(document).ready(function() {
+	console.log('${requestScope["javax.servlet.forward.request_uri"]}');
+	var url = '${requestScope["javax.servlet.forward.request_uri"]}';
+	
+	if (url.indexOf('/typoholic/free') != -1) {
+		$('#myNavbar > ul:nth-child(1) > li:nth-child(2)').attr('class','active');		
+	} else if (url.indexOf('/typoholic/book') != -1) {
+		$('#myNavbar > ul:nth-child(1) > li:nth-child(3)').attr('class','active');		
+	} else if (url.indexOf('/typoholic/') != -1) {
+		$('#myNavbar > ul:nth-child(1) > li:nth-child(1)').attr('class','active');
+	}	
+	
+})
+</script>
+
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -10,12 +28,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Logo</a>
+      <a class="navbar-brand" href="${pageContext.request.contextPath }/">도서정보</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="${pageContext.request.contextPath }/">Home</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="${pageContext.request.contextPath }/">Home</a></li>
         <li><a href="${pageContext.request.contextPath }/free">자유 게시판</a></li>
         <li><a href="${pageContext.request.contextPath }/book">도서 리스트</a></li>
       </ul>
