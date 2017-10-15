@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
-<mapper namespace="web.db.dao.CommentDao">
+<mapper namespace="Comments">
 
 	<!-- 						CREATE 						-->
 	<!-- 게시물 입력 -->
@@ -29,15 +29,15 @@
 		SELECT 
 			postSeq,groupNo,depth,commentSeq,status,userId,content,createAt,updatedAt
 		FROM comments
-		ORDER BY groupNo DESC, depth ASC
 		WHERE postSeq = #{postSeq}
-		AND status = 1
+		AND status = 'published'
+		ORDER BY groupNo DESC, depth ASC
 		LIMIT #{startArticle}, #{articleLimit}
 	</select>
 	
 	<!-- 총 게시물 수 가져오기 -->
 	<select id="getTotalComment" parameterType="Integer" resultType="Integer">
-		SELECT NVL(COUNT(commentSeq), 0)
+		SELECT COUNT(commentSeq)
 		FROM comments
 		WHERE postSeq = #{postSeq}
 		AND status = 1

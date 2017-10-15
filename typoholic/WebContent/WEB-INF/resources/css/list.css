@@ -16,3 +16,8 @@ i.fa-comment {
     padding: 6px 12px;
     line-height: 1;
 }
+/* 게시판 이름 */
+body > div > h2.category-title {
+    border-left: 3px solid steelblue;
+    padding-left: 0.3em;
+}

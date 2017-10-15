@@ -8,19 +8,13 @@
 
 
 <!-- list-style -->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/list-style.css" />
-<style>
-body > div > h2.category-title {
-    border-left: 3px solid steelblue;
-    padding-left: 0.3em;
-}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/list.css" />
 <!-- Ajax -->
 <script type="text/javascript">
 $(document).ready(function() {
-	getList();
+	getPostList();
 });
-function getList() {
+function getPostList() {
 	//페이지 초기화
 	var page = '${page}';
 	if (page == '') {
@@ -40,13 +34,13 @@ function getList() {
  			$.each(data, function(index, item) {
  				console.log(data[index]);
   				//댓글 만들기
- 				$('#postList > tbody').append(setHtml(data[index]));
+ 				$('#postList > tbody').append(setPostHtml(data[index]));
 			}); 
 		}	
 	});
 	
 }
-function setHtml(post) {
+function setPostHtml(post) {
 	var html = '<tr>'
 					+'<td>'+post.seq+'</td>'
 					+'<td>'

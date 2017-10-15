@@ -38,8 +38,11 @@ public class PostService {
 		boolean b;
 		
 		b = postDao.insertPost(post);
-		fileDao.insertFile(file);
-		postFileDao.insertPostFile();
+		//파일이 있을 경우에만 저장
+		if (file.getOriginalFileName().equals("-1") == false) {
+			fileDao.insertFile(file);
+			postFileDao.insertPostFile();			
+		}
 		
 		return b;
 	} 
