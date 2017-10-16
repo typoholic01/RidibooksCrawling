@@ -27,5 +27,12 @@ public class FileService {
 		logger.info("진입");
 		
 		return dao.getFileList(fileSeq);
+	}
+
+	public boolean insertFile(File fileDto) {
+		logger.info("진입");
+		
+		return dao.insertFile(fileDto);
+		
 	} 
 }

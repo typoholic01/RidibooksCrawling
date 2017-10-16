@@ -67,44 +67,17 @@ public class BoardController {
 	
 	//글쓰기 기능
 	@RequestMapping(value="/{boardUrl}/write",method=RequestMethod.POST)
-	public String writePost(@PathVariable String boardUrl, MultipartHttpServletRequest req, MultipartFile uploadFile, Model model) throws IOException {
+	public String writePost(@PathVariable String boardUrl, Post post, Model model) throws IOException {
 		logger.info("Post: /{}/write",boardUrl);
 		//init
-		FileUpload fileUpload;
-		Post post;
-		File file;
-		String path = "";
-        String userId;
-        String title;
-        String content;
-        
-        //init
-        path = req.getSession().getServletContext().getRealPath("/") + "upload/file/"; //파일 저장경로
-        fileUpload = new FileUpload(uploadFile, path);
-        post = new Post();
-        file = new File();
-        
-        //listen
-        //post
-		userId = req.getParameter("userId");
-		title = req.getParameter("title");
-		content = req.getParameter("content");
-		
-		//file
-		file.setFileSize(uploadFile.getSize());
-		file.setContentType(uploadFile.getContentType());
-		file.setOriginalFileName(fileUpload.getOrgFileName());
-		file.setStoredFileName(fileUpload.getStoredFileName());
 		
 		//setup
 		post.setBoardUrl(boardUrl);
-		post.setUserId(userId);
-		post.setTitle(title);
-		post.setContent(content);
 		
 		logger.info(post.toString());
         
-		postServ.insertPost(post,file);
+		//run
+		postServ.insertPost(post, null);
 		
 		logger.info("insert Done");
 		

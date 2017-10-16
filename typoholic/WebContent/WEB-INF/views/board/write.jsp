@@ -37,20 +37,34 @@ function sendFile(file, el) {
     $.ajax({
       data: form_data,
       type: "POST",
-      url: '/image',
+      url: '${pageContext.request.contextPath }/file/image',
       cache: false,
       contentType: false,
       enctype: 'multipart/form-data',
       processData: false,
       success: function(url) {
+    	  console.log(url);
         $(el).summernote('editor.insertImage', url);
         $('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
       }
     });
 }
 </script>
+<script type="text/javascript">
+<!--
+	글쓰기
+//-->
+function bbsWrite() {
+	var content = $('#summernote').summernote("code");
 
-<form action="./write" method="POST" enctype="multipart/form-data">
+	$('#content').val(content);
+	
+	$('#postWrite').submit();
+}
+</script>
+
+<form id="postWrite" action="./write" method="POST" enctype="multipart/form-data">
+<input type="hidden" id="content" name="content" value="" />
 	<div class="row">
 		<div class="col-sm-8 col-sm-offset-2">
 			<div class="form-group"> <!-- userId field -->
@@ -65,11 +79,11 @@ function sendFile(file, el) {
 			
 			<div class="form-group"> <!-- content field -->
 				<label class="control-label " for="content">내용</label>
-				<div id="summernote">Hello Summernote</div>
+				<div id="summernote"></div>
 			</div>
 			
 			<div class="form-group pull-right">
-				<button class="btn btn-primary " name="submit" type="submit">글쓰기</button>
+				<button class="btn btn-primary " name="button" type="button" onclick="bbsWrite();">글쓰기</button>
 			</div>
 			
 		</div>

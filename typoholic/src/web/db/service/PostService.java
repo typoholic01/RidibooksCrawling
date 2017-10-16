@@ -39,7 +39,7 @@ public class PostService {
 		
 		b = postDao.insertPost(post);
 		//파일이 있을 경우에만 저장
-		if (file.getOriginalFileName().equals("-1") == false) {
+		if (file != null && file.getOriginalFileName().equals("-1") == false) {
 			fileDao.insertFile(file);
 			postFileDao.insertPostFile();			
 		}
