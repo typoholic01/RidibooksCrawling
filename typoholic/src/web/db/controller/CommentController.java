@@ -44,9 +44,6 @@ public class CommentController {
 		logger.info("진입");
 		//init
 		
-		//test
-		comment.setContent("안녕하세요");
-		
         //action
 		serv.insertComment(comment);		
 		
