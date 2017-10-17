@@ -122,6 +122,7 @@ public class BoardController {
 		List<Post> postList;
 		QueryPost query;
 		Pagination pagination;
+		String boardName;
 		
 		//페이징
 		pagination = new Pagination(getTotalPost(boardUrl), getParam(req, "page"));
@@ -136,10 +137,17 @@ public class BoardController {
 		//받아오기
 		postList = postServ.getPostList(query);
 		
+		//이름 설정
+		if (boardUrl.equals("free")) {
+			boardName = "자유 게시판";
+		} else {
+			boardName = "뉴스 게시판";			
+		}
+		
 		//요소 추가
 		model.addAttribute("postList", postList);
 		model.addAttribute("pagination", pagination);
-		model.addAttribute("boardName", "자유 게시판");
+		model.addAttribute("boardName", boardName);
 		
 		return "board.tiles";
 	}

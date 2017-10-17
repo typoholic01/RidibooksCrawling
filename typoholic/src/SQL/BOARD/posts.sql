@@ -20,7 +20,7 @@ CREATE TABLE Posts(
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --더미데이터 넣기
-INSERT INTO Posts(
+INSERT INTO posts(
 			boardUrl,groupNo,seq,userId,title,content
 		)
 		VALUES(

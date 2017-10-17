@@ -15,4 +15,4 @@ SELECT * FROM board;
 
 --자동생성
 INSERT INTO boards(boardUrl)
-values('free');
+values('news');

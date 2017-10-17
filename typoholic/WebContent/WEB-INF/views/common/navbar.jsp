@@ -9,10 +9,12 @@ $(document).ready(function() {
 	console.log('${requestScope["javax.servlet.forward.request_uri"]}');
 	var url = '${requestScope["javax.servlet.forward.request_uri"]}';
 	
-	if (url.indexOf('/typoholic/free') != -1) {
+	if (url.indexOf('/typoholic/news') != -1) {
 		$('#myNavbar > ul:nth-child(1) > li:nth-child(2)').attr('class','active');		
-	} else if (url.indexOf('/typoholic/book') != -1) {
+	} else if (url.indexOf('/typoholic/free') != -1) {
 		$('#myNavbar > ul:nth-child(1) > li:nth-child(3)').attr('class','active');		
+	} else if (url.indexOf('/typoholic/book') != -1) {
+		$('#myNavbar > ul:nth-child(1) > li:nth-child(4)').attr('class','active');		
 	} else if (url.indexOf('/typoholic/') != -1) {
 		$('#myNavbar > ul:nth-child(1) > li:nth-child(1)').attr('class','active');
 	}	
@@ -33,6 +35,7 @@ $(document).ready(function() {
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li><a href="${pageContext.request.contextPath }/">Home</a></li>
+        <li><a href="${pageContext.request.contextPath }/news">뉴스 게시판</a></li>
         <li><a href="${pageContext.request.contextPath }/free">자유 게시판</a></li>
         <li><a href="${pageContext.request.contextPath }/book">도서 리스트</a></li>
       </ul>

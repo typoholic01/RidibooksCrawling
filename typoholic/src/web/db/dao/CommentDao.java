@@ -25,6 +25,8 @@ public class CommentDao {
 	public boolean insertComment(Comment comment) {
 		logger.info("진입");
 		
+		logger.info(comment.toString());
+		
 		return session.insert(ns+"insertComment", comment) > 0 ? true:false;
 		
 	}
