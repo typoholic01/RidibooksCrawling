@@ -2,35 +2,107 @@
     pageEncoding="UTF-8"%>    
     <% request.setCharacterEncoding("UTF-8"); %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
+<!-- AJAX -->
+<script type="text/javascript">
+$(document).ready(function() {
+	getPostList();
+	getBookList();
+	$('.carousel').carousel();
+});
+function getBookList() {
+	
+	$.ajax({
+		type: 'GET',
+		url: './book/json/',
+		data: {
+			"queryType" : 'clap',
+			"direction" : 'desc'
+		},		
+		async: true, 
+		success: function(data) {
+			$.each(data, function(index, item) {
+ 				$('#myCarousel div.carousel-inner').append(setBookHtml(data[index]));
+ 				
+ 				if (index == 0) {
+ 					$('#myCarousel div.carousel-inner div.item').attr('class','item active');
+				} else if (index == 5) {
+  					return false;
+				}
+			});
+		}
+	});
+}
+function setBookHtml(book,index) {	
+	var html = '<div class="item">'
+			+'    <img class="col-sm-12" src="'+book.cover+'" alt="'+book.title+'" style="height: 340px;">'
+			+'    <div class="carousel-caption">'
+			+'      <h3>'+book.title+'</h3>'
+			+'      <p>'+book.author+'</p>'
+			+'    </div>'
+			+'  </div>';
+	
+	return html;
+}
+</script>
+<!-- Ajax -->
+<script type="text/javascript">
+function getPostList() {
+	//페이지 초기화
+	var page = '${page}';
+	if (page == '') {
+		page = '1';
+	}
+	
+	$.ajax({
+		type: 'GET',
+		url: '${pageContext.request.contextPath }/json/free',
+		data: {
+			"page" : page
+		},		
+		async: true, 
+		success: function(data) {
+			console.log(data);
+			
+ 			$.each(data, function(index, item) {
+ 				console.log(data[index]);
+  				//글 만들기
+ 				$('#postList > tbody').append(setPostHtml(data[index]));
+  				if (index == 5) {
+  					return false;
+				}
+			}); 
+		}	
+	});
+	
+}
+function setPostHtml(post) {
+	var html = '<tr>'
+					+'<td>'
+						+'<a href="${pageContext.request.contextPath }/free/'+post.seq+'?page=${pagination.currPage}">'+post.title+'</a>'
+					+'</td>'
+					+'<td>'+post.userId+'</td>'
+				+'</tr>';
+	
+	return html;
+}
+</script>
 <div class="container">
 <div class="row">
-  <div class="col-sm-8">
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+	<div class="col-sm-3">
+  	<h4 class="category-title" style="border-left: 3px solid steelblue;padding-left: 0.3em;">베스트셀러</h4>
+  	<div id="myCarousel" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+        <li data-target="#myCarousel" data-slide-to="4"></li>
       </ol>
 
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <img src="https://placehold.it/800x400?text=IMAGE" alt="Image">
-          <div class="carousel-caption">
-            <h3>Sell $</h3>
-            <p>Money Money.</p>
-          </div>      
-        </div>
-
-        <div class="item">
-          <img src="https://placehold.it/800x400?text=Another Image Maybe" alt="Image">
-          <div class="carousel-caption">
-            <h3>More Sell $</h3>
-            <p>Lorem ipsum...</p>
-          </div>      
-        </div>
+      <!-- bookList	 -->
       </div>
 
       <!-- Left and right controls -->
@@ -44,80 +116,36 @@
       </a>
     </div>
   </div>
-  <div class="col-sm-4">
-    <div class="well">
-      <p>Some text..</p>
-    </div>
-    <div class="well">
-       <p>Upcoming Events..</p>
-    </div>
-    <div class="well">
-       <p>Visit Our Blog</p>
-    </div>
-  </div>
+  <div class="col-sm-9">
+  	<div class="row">
+		<div class="table-responsive">
+		<h4 class="category-title" style="border-left: 3px solid steelblue;padding-left: 0.3em;">자유 게시판</h4>   	          
+		  <table id="postList" class="table table-hover table-bordered">
+		  	<colgroup>
+		  		<col class="col-sm-9" />
+		  		<col class="col-sm-3" />
+		  	</colgroup>
+		    <tbody>
+		 	<!-- 				게시물 불러오기				 -->   
+		    </tbody>
+		  </table>
+	  	</div>
+  	</div>
+  	<div class="row">
+		<div class="table-responsive">
+		<h4 class="category-title" style="border-left: 3px solid steelblue;padding-left: 0.3em;">게시판2</h4>   	          
+		  <table id="postList" class="table table-hover table-bordered">
+		  	<colgroup>
+		  		<col class="col-sm-9" />
+		  		<col class="col-sm-3" />
+		  	</colgroup>
+		    <tbody>
+		 	<!-- 				게시물 불러오기				 -->   
+		    </tbody>
+		  </table>
+	  	</div>
+  	</div>
+  </div>  
 </div>
 <hr>
 </div>
-
-<div class="container text-center">    
-  <h3>What We Do</h3>
-  <br>
-  <div class="row">
-    <div class="col-sm-3">
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Current Project</p>
-    </div>
-    <div class="col-sm-3"> 
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Project 2</p>    
-    </div>
-    <div class="col-sm-3">
-      <div class="well">
-       <p>Some text..</p>
-      </div>
-      <div class="well">
-       <p>Some text..</p>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="well">
-       <p>Some text..</p>
-      </div>
-      <div class="well">
-       <p>Some text..</p>
-      </div>
-    </div>  
-  </div>
-  <hr>
-</div>
-
-<div class="container text-center">    
-  <h3>Our Partners</h3>
-  <br>
-  <div class="row">
-    <div class="col-sm-2">
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Partner 1</p>
-    </div>
-    <div class="col-sm-2"> 
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Partner 2</p>    
-    </div>
-    <div class="col-sm-2"> 
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Partner 3</p>
-    </div>
-    <div class="col-sm-2"> 
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Partner 4</p>
-    </div> 
-    <div class="col-sm-2"> 
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Partner 5</p>
-    </div>     
-    <div class="col-sm-2"> 
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Partner 6</p>
-    </div> 
-  </div>
-</div><br>

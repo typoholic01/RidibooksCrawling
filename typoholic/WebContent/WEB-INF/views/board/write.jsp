@@ -63,7 +63,7 @@ function bbsWrite() {
 }
 </script>
 
-<form id="postWrite" action="./write" method="POST" enctype="multipart/form-data">
+<form id="postWrite" action="./write" method="POST">
 <input type="hidden" id="content" name="content" value="" />
 	<div class="row">
 		<div class="col-sm-8 col-sm-offset-2">

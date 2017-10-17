@@ -7,7 +7,64 @@
 <script type="text/javascript" src='${pageContext.request.contextPath }/resources/js/write.js' ></script>
 <link rel="stylesheet" href='${pageContext.request.contextPath }/resources/css/write.css' />
 
-<form action="../${postSeq }" method="POST">
+<!-- include summernote css/js-->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<!-- include summernote-ko-KR -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/lang/summernote-ko-KR.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	  $('#summernote').summernote({
+		  height: 200,                 // set editor height
+		  minHeight: null,             // set minimum height of editor
+		  maxHeight: null,             // set maximum height of editor
+		  focus: true,                 // set focus to editable area after initializing summernote
+		  lang : 'ko-KR',				// 기본 메뉴언어 US->KR로 변경
+		  callbacks: {
+	          onImageUpload: function(files, editor, welEditable) {
+	            for (var i = files.length - 1; i >= 0; i--) {
+	              sendFile(files[i], this);
+	            }
+	          }
+	        }
+		});
+	});
+
+function sendFile(file, el) {
+    var form_data = new FormData();
+    form_data.append('file', file);
+    $.ajax({
+      data: form_data,
+      type: "POST",
+      url: '${pageContext.request.contextPath }/file/image',
+      cache: false,
+      contentType: false,
+      enctype: 'multipart/form-data',
+      processData: false,
+      success: function(url) {
+    	  console.log(url);
+        $(el).summernote('editor.insertImage', url);
+        $('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
+      }
+    });
+}
+</script>
+<script type="text/javascript">
+<!--
+	글수정
+//-->
+function postUpdate() {
+	var content = $('#summernote').summernote("code");
+
+	$('#content').val(content);
+	
+	$('#postUpdate').submit();
+}
+</script>
+
+<form id="postUpdate" action="../${postSeq }" method="POST">
+<input type="hidden" id="content" name="content" value="" />
 	<input type="hidden" name="_method" value="PUT">
 	<div class="row">
 		<div class="col-sm-8 col-sm-offset-2">
@@ -23,22 +80,11 @@
 			
 			<div class="form-group"> <!-- content field -->
 				<label class="control-label " for="content">내용</label>
-				<textarea class="form-control" cols="40" id="content" name="content" rows="10">${post.content }</textarea>
-			</div>
-			
-			<div class="form-group"> <!-- File field -->
-			   <input type="file" id="uploadFile" name="uploadFile" class="file" style="visibility: hidden;position: absolute;">
-			   <div class="input-group col-xs-12">
-			     <span class="input-group-addon"><i class="fa fa-file"></i></span>
-			     <input type="text" class="form-control input-lg" disabled placeholder="파일 업로드">
-			     <span class="input-group-btn">
-			       <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i> 파일</button>
-			     </span>
-			   </div>
+				<div id="summernote">${post.content }</div>
 			</div>
 			
 			<div class="form-group pull-right">
-				<button class="btn btn-primary " name="submit" type="submit">글쓰기</button>
+				<button class="btn btn-primary " name="button" type="button" onclick="postUpdate();">글수정</button>
 			</div>
 			
 		</div>

@@ -10,13 +10,13 @@ function sortTable(column) {
 	
 	$.ajax({
 		type: 'GET',
-		url: './json/',
+		url: './book/json/',
 		data: {
 			"queryType" : column,
 			"direction" : direction
 		},		
 		async: true, 
-		success: function(data) {
+		success: function(data) {			
 			$.each(data, function(index, item) {
  				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(1) > img').attr('src',data[index].cover);
  				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(2)').text(data[index].category);
@@ -45,9 +45,9 @@ function sortTable(column) {
 			<tr>
 				<th>cover</th>
 				<th onclick="sortTable('category')">분류</th>
-				<th onclick="sortTable('clap')">clap</th>
-				<th onclick="sortTable('title')">title</th>
-				<th onclick="sortTable('author')">author</th>
+				<th onclick="sortTable('clap')">유명도</th>
+				<th onclick="sortTable('title')">제목</th>
+				<th onclick="sortTable('author')">저자</th>
 			</tr>
 		</thead>
 		<tbody>
