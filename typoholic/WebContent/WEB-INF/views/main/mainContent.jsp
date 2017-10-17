@@ -5,7 +5,8 @@
 <!-- AJAX -->
 <script type="text/javascript">
 $(document).ready(function() {
-	getPostList();
+	getPostList('news');
+	getPostList('free');
 	getBookList();
 	$('.carousel').carousel();
 });
@@ -46,7 +47,9 @@ function setBookHtml(book,index) {
 </script>
 <!-- Ajax -->
 <script type="text/javascript">
-function getPostList() {
+function getPostList(boardUrl) {
+	var target = '#'+boardUrl+' > tbody';
+	
 	//페이지 초기화
 	var page = '${page}';
 	if (page == '') {
@@ -55,7 +58,7 @@ function getPostList() {
 	
 	$.ajax({
 		type: 'GET',
-		url: '${pageContext.request.contextPath }/json/free',
+		url: '${pageContext.request.contextPath }/json/'+boardUrl,
 		data: {
 			"page" : page
 		},		
@@ -66,7 +69,7 @@ function getPostList() {
  			$.each(data, function(index, item) {
  				console.log(data[index]);
   				//글 만들기
- 				$('#postList > tbody').append(setPostHtml(data[index]));
+ 				$(target).append(setPostHtml(data[index]));
   				if (index == 5) {
   					return false;
 				}
@@ -78,7 +81,7 @@ function getPostList() {
 function setPostHtml(post) {
 	var html = '<tr>'
 					+'<td>'
-						+'<a href="${pageContext.request.contextPath }/free/'+post.seq+'?page=${pagination.currPage}">'+post.title+'</a>'
+						+'<a href="${pageContext.request.contextPath }/free/'+post.seq+'">'+post.title+'</a>'
 					+'</td>'
 					+'<td>'+post.userId+'</td>'
 				+'</tr>';
@@ -119,8 +122,8 @@ function setPostHtml(post) {
   <div class="col-sm-9">
   	<div class="row">
 		<div class="table-responsive">
-		<h4 class="category-title" style="border-left: 3px solid steelblue;padding-left: 0.3em;">자유 게시판</h4>   	          
-		  <table id="postList" class="table table-hover table-bordered">
+		<h4 class="category-title" style="border-left: 3px solid steelblue;padding-left: 0.3em;">뉴스 게시판</h4>   	          
+		  <table id="news" class="table table-hover table-bordered">
 		  	<colgroup>
 		  		<col class="col-sm-9" />
 		  		<col class="col-sm-3" />
@@ -133,8 +136,8 @@ function setPostHtml(post) {
   	</div>
   	<div class="row">
 		<div class="table-responsive">
-		<h4 class="category-title" style="border-left: 3px solid steelblue;padding-left: 0.3em;">게시판2</h4>   	          
-		  <table id="postList" class="table table-hover table-bordered">
+		<h4 class="category-title" style="border-left: 3px solid steelblue;padding-left: 0.3em;">자유 게시판</h4>   	          
+		  <table id="free" class="table table-hover table-bordered">
 		  	<colgroup>
 		  		<col class="col-sm-9" />
 		  		<col class="col-sm-3" />
