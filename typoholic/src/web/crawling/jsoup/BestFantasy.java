@@ -12,11 +12,9 @@ import web.db.vo.Ridibook;
 public class BestFantasy {
 	private static final Logger logger = LoggerFactory.getLogger(BestFantasy.class);
 	
-	public List<Ridibook> getRidibookFantasyList(int page) throws IOException {
-		logger.info("getFantasyDocument");
+	public List<Ridibook> getRidibookList(String category, String url) throws IOException {
+		logger.info("진입");
 		//init
-		String url = "https://ridibooks.com/bestsellers/fantasy?page="+page;
-		String category = "판타지";
 		List<Ridibook> bookList = new ArrayList<>();
 		List<String> linkList;
 		List<String> coverList;

@@ -10,6 +10,17 @@
 		FROM ridibooks
 	</select>
 	
+	<!-- getList with PL/SQL -->
+	<select id="getRidibookList" resultType="Ridibook" parameterType="QueryBook">
+		SELECT category, link, cover, title, author, star * starredPerson "clap"
+		FROM ridibooks
+		<if test="category != null and category != ''">
+		WHERE category = #{category}
+		</if>
+		ORDER BY ${queryType} ${direction}
+		LIMIT #{startListNum}, #{ListLimit}
+	</select>
+	
 	<!-- SortingTable -->
 	<select id="getRidibookListOrderByClapDESC" resultType="Ridibook" parameterType="web.view.util.Pagination">
 		SELECT category, link, cover, title, author, star * starredPerson "clap"

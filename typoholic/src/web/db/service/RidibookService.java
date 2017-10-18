@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import web.db.dao.RidibooksDao;
 import web.db.vo.Ridibook;
+import web.query.vo.QueryBook;
 import web.view.util.Pagination;
 
 @Service
@@ -48,6 +49,12 @@ public class RidibookService {
 	public List<Ridibook> getRidibookListOrderByClapASC() {
 		logger.info("진입");
 		return dao.getRidibookListOrderByClapASC();
+	}
+
+
+	public List<Ridibook> getRidibookList(QueryBook query) {
+		logger.info("진입");
+		return dao.getRidibookList(query);
 	}
 	
 

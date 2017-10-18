@@ -4,14 +4,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- AJAX -->
 <script type="text/javascript">
-function sortTable(column) {
-	var direction = $("#direction").val();
-	console.log(direction);
+function sortTable(category, column, scending) {	
+	//init
+	var direction; 
+	
+	//direction
+	if (scending == true) {
+		direction = $("#direction").val();		
+	} else {
+		direction = 'desc';
+		$("#direction").val("desc");
+	}
 	
 	$.ajax({
 		type: 'GET',
 		url: './book/json/',
 		data: {
+			"category" : category,
 			"queryType" : column,
 			"direction" : direction
 		},		
@@ -34,20 +43,53 @@ function sortTable(column) {
 			}
 		}
 	});
+	
+	//후처리
+	if (category != '') {
+		$('#sortTable > thead > tr > th:nth-child(2)').attr('onclick','sortTable(\''+category+'\', \'category\', true)');
+		$('#sortTable > thead > tr > th:nth-child(3)').attr('onclick','sortTable(\''+category+'\', \'clap\', true)');
+		$('#sortTable > thead > tr > th:nth-child(4)').attr('onclick','sortTable(\''+category+'\', \'title\', true)');
+		$('#sortTable > thead > tr > th:nth-child(5)').attr('onclick','sortTable(\''+category+'\', \'author\', true)');
+	}
+
+	//셀렉터
+	sideNav(category);
+}
+
+//셀렉터
+function sideNav(category) {
+	if (category == '') {
+		$('#book-sidenav > ul > li').attr('class','');
+		$('#book-sidenav > ul > li:nth-child(1)').attr('class','active');
+	} else if (category == 'general') {
+		$('#book-sidenav > ul > li').attr('class','');
+		$('#book-sidenav > ul > li:nth-child(2)').attr('class','active');		
+	} else if (category == 'fantasy') {
+		$('#book-sidenav > ul > li').attr('class','');
+		$('#book-sidenav > ul > li:nth-child(3)').attr('class','active');		
+	}
 }
 </script>
 <!-- 추가 파라미터 -->
 <input type="hidden" id="direction" value="asc" />
+<input type="hidden" id="category" value="" />
 <div class="col-sm-10">
 <div class="table-responsive">
-		<table id="sortTable" class="table">
+	<table id="sortTable" class="table">
+		<colgroup>
+			<col class="col-sm-2">
+			<col class="col-sm-1">
+			<col class="col-sm-1">
+			<col class="col-sm-6">
+			<col class="col-sm-2">
+		</colgroup>
 		<thead>
 			<tr>
 				<th>cover</th>
-				<th onclick="sortTable('category')">분류</th>
-				<th onclick="sortTable('clap')">유명도</th>
-				<th onclick="sortTable('title')">제목</th>
-				<th onclick="sortTable('author')">저자</th>
+				<th onclick="sortTable('${category}', 'category', true)">분류</th>
+				<th onclick="sortTable('${category}', 'clap', true)">인기</th>
+				<th onclick="sortTable('${category}', 'title', true)">제목</th>
+				<th onclick="sortTable('${category}', 'author', true)">저자</th>
 			</tr>
 		</thead>
 		<tbody>

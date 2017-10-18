@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import web.db.service.RidibookService;
 import web.db.vo.Ridibook;
+import web.query.vo.QueryBook;
 import web.view.util.Pagination;
 
 @Controller
@@ -53,22 +54,16 @@ public class BookController {
 	}
 
 	@RequestMapping(value="/book/json",method=RequestMethod.GET)
-	public @ResponseBody List<Ridibook> ridibooksPut(HttpServletRequest req) {
-		logger.info("ridibooksPut");
+	public @ResponseBody List<Ridibook> ridibooksPut(QueryBook query, HttpServletRequest req) {
+		logger.info("진입");
 		//init
 		Pagination pagination;
 		List<Ridibook> list = null;
-		String queryType;
-		String direction;
 		int page;
 		int totalBook;
 		
 		//listen
-		queryType = req.getParameter("queryType");
-		direction = req.getParameter("direction");
 		page = getPage(req);
-
-		logger.info("queryType: {} \t\t direction: {}",queryType,direction);
 		
 		//DB get
 		totalBook = serv.getTotalBook();
@@ -76,19 +71,26 @@ public class BookController {
 		//paging
 		pagination = new Pagination(totalBook, page);
 		
+		//Query Set
+		query.setStartListNum(pagination.getStartArticle());
+		query.setListLimit(pagination.getArticleLimit());
+		
+		logger.info("query: {}", query.toString());
+		
 		
 		//정렬(객체화)
-		if (direction.equals("desc")) {
-			if (queryType.equals("star"))
-				list = null;
-			else if (queryType.equals("clap"))
-				list = serv.getRidibookListOrderByClapDESC(pagination);
-		} else {
-			if (queryType.equals("star"))
-				list = null;
-			else if (queryType.equals("clap"))
-				list = serv.getRidibookListOrderByClapASC();	
-		}
+		list = serv.getRidibookList(query);
+//		if (direction.equals("desc")) {
+//			if (queryType.equals("star"))
+//				list = null;
+//			else if (queryType.equals("clap"))
+//				list = serv.getRidibookListOrderByClapDESC(pagination);
+//		} else {
+//			if (queryType.equals("star"))
+//				list = null;
+//			else if (queryType.equals("clap"))
+//				list = serv.getRidibookListOrderByClapASC();	
+//		}
 		
 		return list;
 	}

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import web.db.vo.Ridibook;
+import web.query.vo.QueryBook;
 import web.view.util.Pagination;
 
 @Repository
@@ -45,6 +46,12 @@ public class RidibooksDao {
 	public List<Ridibook> getRidibookListOrderByClapASC() {
 		logger.info("진입");
 		return session.selectList(ns+"getRidibookListOrderByClapASC");
+	}
+
+
+	public List<Ridibook> getRidibookList(QueryBook query) {
+		logger.info("진입");
+		return session.selectList(ns+"getRidibookList",query);
 	}
 	
 

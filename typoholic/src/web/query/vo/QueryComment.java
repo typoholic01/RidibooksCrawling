@@ -14,6 +14,7 @@ public class QueryComment implements Serializable {
 	private int startArticle;					//시작 코멘트
 	private int endArticle;						//끝 코멘트
 	private int articleLimit;					//게시물 제한
+	
 	public String getBoardUrl() {
 		return boardUrl;
 	}

@@ -36,3 +36,8 @@ SELECT category, link, cover, title, author, star * starredPerson "clap"
 FROM RIDIBOOKS
 ORDER BY clap DESC
 LIMIT 0, 10;
+
+--업데이트용
+		UPDATE ridibooks
+		SET category = 'fantasy'
+		WHERE category = '판타지'

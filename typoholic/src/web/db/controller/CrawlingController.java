@@ -3,16 +3,15 @@ package web.db.controller;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import web.crawling.jsoup.BestFantasy;
 import web.db.service.RidibookService;
@@ -25,24 +24,40 @@ public class CrawlingController {
 	@Autowired
 	RidibookService serv;
 	
-	@RequestMapping(value="/crawling/ridibooks/fantasy",method=RequestMethod.GET)
-	public String crawling(Model model) throws IOException {
+	@RequestMapping(value="/crawling/ridibooks/{category}/{page}",method=RequestMethod.GET)
+	public String crawling(@PathVariable String category,@PathVariable String page, HttpServletRequest req) throws IOException {
 		logger.info("crawling");
 		BestFantasy ctrl = new BestFantasy();
+		String url;
+		String prefix;
+		String parameter;
+		
+		//url 세팅
+		prefix = "https://ridibooks.com/bestsellers/";
+		parameter = "?page="+page;
+		url = prefix + category + parameter;
+		
+		logger.info(url);
 
-		for (int i = 1; i < 8; i++) {
-			List<Ridibook> list = ctrl.getRidibookFantasyList(i);
-			
-			for (Ridibook ridibook : list) {
-				try {
-					serv.insertRidibook(ridibook);					
-				} catch (Exception e) {
-					logger.error(e.getMessage());
-				}
+		List<Ridibook> list = ctrl.getRidibookList(category, url);
+		
+		for (Ridibook ridibook : list) {
+			try {
+				serv.insertRidibook(ridibook);					
+			} catch (Exception e) {
+				logger.error(e.getMessage());
 			}
 		}
 		
-		return "booklist.tiles";
+		return "redirect:/book";
+	}
+
+	private String getParameter(HttpServletRequest req, String parameter) {
+		if (req.getParameter(parameter) == null) {
+			return "";
+		} else {
+			return req.getParameter(parameter);
+		}
 	}
 
 }
