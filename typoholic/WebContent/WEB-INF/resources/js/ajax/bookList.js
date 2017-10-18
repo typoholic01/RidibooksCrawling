@@ -7,6 +7,7 @@ function loadJQuery() {
 }
 
 function getBookList(category, column, direction) {
+	var answer;
 	$.ajax({
 		type: 'GET',
 		url: './book/json/',
@@ -16,15 +17,15 @@ function getBookList(category, column, direction) {
 			"direction" : direction
 		},		
 		async: true, 
-		success: function(data) {			
+		success: function(data) {
 			$.each(data, function(index, item) {
-					$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(1) > img').attr('src',data[index].cover);
-					$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(2)').text(data[index].category);
-					$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(3)').text(data[index].clap);
-					$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(4) > a').attr('href','https://ridibooks.com'+data[index].link);
-					$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(4) > a').text(data[index].title);
-					$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(5) > a').text(data[index].author);
-			});
+				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(1) > img').attr('src',data[index].cover);
+				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(2)').text(data[index].category);
+				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(3)').text(data[index].clap);
+				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(4) > a').attr('href','https://ridibooks.com'+data[index].link);
+				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(4) > a').text(data[index].title);
+				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(5) > a').text(data[index].author);
+			});			
 		}
 	});
 }

@@ -3,37 +3,39 @@
     <% request.setCharacterEncoding("UTF-8"); %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- AJAX -->
+<script type="text/javascript" src='${pageContext.request.contextPath }/resources/js/ajax/bookList.js' ></script>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	getPostList('news');
 	getPostList('free');
-	getBookList();
+	getCarouselList();
 	$('.carousel').carousel();
 });
-function getBookList() {
-	
+function getCarouselList() {
 	$.ajax({
 		type: 'GET',
 		url: './book/json/',
 		data: {
-			"queryType" : 'clap',
+			"category" : '',
+			"directionType" : 'clap',
 			"direction" : 'desc'
 		},		
 		async: true, 
 		success: function(data) {
-			$.each(data, function(index, item) {
- 				$('#myCarousel div.carousel-inner').append(setBookHtml(data[index]));
- 				
- 				if (index == 0) {
- 					$('#myCarousel div.carousel-inner div.item').attr('class','item active');
+			$.each(data, function(index, item) {				
+				$('#myCarousel div.carousel-inner').append(setBookHtml(data[index]));
+					
+				if (index == 0) {
+					$('#myCarousel div.carousel-inner div.item').attr('class','item active');
 				} else if (index == 5) {
-  					return false;
+					return false;
 				}
 			});
 		}
-	});
+	});	
 }
-function setBookHtml(book,index) {	
+function setBookHtml(book) {	
 	var html = '<div class="item">'
 			+'    <img class="col-sm-12" src="'+book.cover+'" alt="'+book.title+'" style="height: 340px;">'
 			+'    <div class="carousel-caption">'
@@ -63,11 +65,8 @@ function getPostList(boardUrl) {
 			"page" : page
 		},		
 		async: true, 
-		success: function(data) {
-			console.log(data);
-			
+		success: function(data) {			
  			$.each(data, function(index, item) {
- 				console.log(data[index]);
   				//글 만들기
  				$(target).append(setPostHtml(data[index]));
   				if (index == 5) {

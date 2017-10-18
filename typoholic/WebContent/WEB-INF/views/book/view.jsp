@@ -16,6 +16,7 @@
 function sortTable(category, column, scending) {	
 	//init
 	var direction; 
+	var data;
 	
 	//direction
 	if (scending == true) {
@@ -26,7 +27,7 @@ function sortTable(category, column, scending) {
 	}
 	
 	//Ajax 처리
-	getBookList(category, column, direction);
+	getBookList(category, column, direction);	
 	
 	//후처리
 	if (category != '') {
