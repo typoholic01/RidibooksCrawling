@@ -3,11 +3,33 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
 <mapper namespace="Ridibook">
+	
+	<!--******************
+			CREATE
+	******************  -->
+	
+	<insert id="insertRidibook" parameterType="Ridibook">
+		INSERT INTO ridibooks(category, link, cover, title, author, star, starredPerson)
+		VALUES(#{category}, #{link}, #{cover}, #{title}, #{author}, #{star}, #{starredPerson})	
+		ON DUPLICATE KEY UPDATE star=#{star}, starredPerson=#{starredPerson}	
+	</insert>
+	
+	<!--******************
+			READ
+	******************  -->
 
 	<!-- getTotalCount -->
-	<select id="getTotalBook" resultType="Integer">
+	<select id="getTotalBook" resultType="Integer" parameterType="QueryBook">
 		SELECT count(link)
 		FROM ridibooks
+		WHERE 1 = 1
+		<if test="category != null and category != ''">
+		AND category = #{category}
+		</if>
+		<if test="queryType != null and queryType != ''">
+			<bind name="query" value="'%'+query+'%'"/>	
+		AND ${queryType} LIKE #{query}
+		</if>
 	</select>
 	
 	<!-- getList with Dynamic SQL -->
@@ -25,24 +47,5 @@
 		ORDER BY ${directionType} ${direction}
 		LIMIT #{startListNum}, #{ListLimit}
 	</select>
-	
-	<!-- SortingTable -->
-	<select id="getRidibookListOrderByClapDESC" resultType="Ridibook" parameterType="web.view.util.Pagination">
-		SELECT category, link, cover, title, author, star * starredPerson "clap"
-		FROM ridibooks
-		ORDER BY clap DESC
-		LIMIT #{startArticle}, #{articleLimit}
-	</select>
-	<select id="getRidibookListOrderByClapASC" resultType="Ridibook">
-		SELECT category, link, cover, title, author, star * starredPerson "clap"
-		FROM ridibooks
-		ORDER BY clap ASC
-	</select>	
-	
-	<insert id="insertRidibook" parameterType="Ridibook">
-		INSERT INTO ridibooks(category, link, cover, title, author, star, starredPerson)
-		VALUES(#{category}, #{link}, #{cover}, #{title}, #{author}, #{star}, #{starredPerson})	
-		ON DUPLICATE KEY UPDATE star=#{star}, starredPerson=#{starredPerson}	
-	</insert>
 		 
 </mapper>

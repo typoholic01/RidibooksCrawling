@@ -38,7 +38,7 @@ public class BookController {
 		page = getPage(req);
 		
 		//DB get
-		totalBook = serv.getTotalBook();
+		totalBook = serv.getTotalBook(query);
 		
 		//paging
 		pagination = new Pagination(totalBook, page);
@@ -77,7 +77,7 @@ public class BookController {
 		page = getPage(req);
 		
 		//DB get
-		totalBook = serv.getTotalBook();
+		totalBook = serv.getTotalBook(query);
 		
 		//paging
 		pagination = new Pagination(totalBook, page);

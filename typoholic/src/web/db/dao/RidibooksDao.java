@@ -33,21 +33,10 @@ public class RidibooksDao {
 	/*************************************************
 	 * 					READ
 	 * ***********************************************/
-	public int getTotalBook() {
+	public int getTotalBook(QueryBook query) {
 		logger.info("진입");
-		return session.selectOne(ns+"getTotalBook");
+		return session.selectOne(ns+"getTotalBook",query);
 	}
-	
-	/* SORTING */
-	public List<Ridibook> getRidibookListOrderByClapDESC(Pagination pagination) {
-		logger.info("진입");
-		return session.selectList(ns+"getRidibookListOrderByClapDESC",pagination);
-	}
-	public List<Ridibook> getRidibookListOrderByClapASC() {
-		logger.info("진입");
-		return session.selectList(ns+"getRidibookListOrderByClapASC");
-	}
-
 
 	public List<Ridibook> getRidibookList(QueryBook query) {
 		logger.info("진입");
