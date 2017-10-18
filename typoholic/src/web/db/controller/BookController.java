@@ -26,7 +26,7 @@ public class BookController {
 	RidibookService serv;
 	
 	@RequestMapping(value="/book",method=RequestMethod.GET)
-	public String book(Model model, HttpServletRequest req) {
+	public String book(QueryBook query, Model model, HttpServletRequest req) {
 		logger.info("book");
 		//init
 		int page;		
@@ -42,9 +42,20 @@ public class BookController {
 		
 		//paging
 		pagination = new Pagination(totalBook, page);
+
+		//Query Set
+		query.setStartListNum(pagination.getStartArticle());
+		query.setListLimit(pagination.getArticleLimit());
+		
+		if (query.getQueryType() == null) {
+			query.setQueryType("clap");
+			query.setDirection("DESC");
+		}
+
+		logger.info("query: {}", query.toString());
 		
 		//DB get
-		list = serv.getRidibookListOrderByClapDESC(pagination);		
+		list = serv.getRidibookList(query);
 		
 		//속성 넣기
 		model.addAttribute("list", list);
@@ -77,20 +88,8 @@ public class BookController {
 		
 		logger.info("query: {}", query.toString());
 		
-		
-		//정렬(객체화)
+		//run
 		list = serv.getRidibookList(query);
-//		if (direction.equals("desc")) {
-//			if (queryType.equals("star"))
-//				list = null;
-//			else if (queryType.equals("clap"))
-//				list = serv.getRidibookListOrderByClapDESC(pagination);
-//		} else {
-//			if (queryType.equals("star"))
-//				list = null;
-//			else if (queryType.equals("clap"))
-//				list = serv.getRidibookListOrderByClapASC();	
-//		}
 		
 		return list;
 	}

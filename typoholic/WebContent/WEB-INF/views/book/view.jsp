@@ -2,6 +2,12 @@
     pageEncoding="UTF-8"%>    
     <% request.setCharacterEncoding("UTF-8"); %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- CSS -->
+<style>
+#pagination > ul > li > a > i {
+	font-size: x-large;
+}
+</style>
 <!-- AJAX -->
 <script type="text/javascript">
 function sortTable(category, column, scending) {	
@@ -109,7 +115,7 @@ function sideNav(category) {
 </div>
 
 <!-- 페이징 -->
-<div style="text-align: center;">
+<div id="pagination" style="text-align: center;">
     <ul class="pagination pagination-lg">
     	<!-- 10페이지 이전 -->
     	<c:choose>
@@ -117,7 +123,7 @@ function sideNav(category) {
 	  		<li class="disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>	  	
 	  	</c:when>
 	  	<c:otherwise>
-	  		<li><a href="?page=${pagination.currPage - pagination.pageLimit }"><i class="fa fa-angle-double-left"></i></a></li>	 	  	
+	  		<li><a href="?page=${pagination.currPage - pagination.pageLimit }&category=${param.category}"><i class="fa fa-angle-double-left"></i></a></li>	 	  	
 	  	</c:otherwise>
 	  </c:choose> 
 	  <!-- 1페이지 이전 -->
@@ -126,7 +132,7 @@ function sideNav(category) {
 	  		<li class="disabled"><a href="#"><i class="fa fa-angle-left"></i></a></li>	  	
 	  	</c:when>
 	  	<c:otherwise>
-	  		<li><a href="?page=${pagination.currPage - 1 }"><i class="fa fa-angle-left"></i></a></li>	 	  	
+	  		<li><a href="?page=${pagination.currPage - 1 }&category=${param.category}"><i class="fa fa-angle-left"></i></a></li>	 	  	
 	  	</c:otherwise>
 	  </c:choose>
 	  <!-- 페이징 설정만큼 돌리기 -->
@@ -134,11 +140,11 @@ function sideNav(category) {
 	  	<c:choose>
 	  		<c:when test="${i == pagination.currPage }">
 	 			<li class="active">
-	 				<a href="?page=${i }">${i }</a>
+	 				<a href="?page=${i }&category=${param.category}">${i }</a>
 	 			</li>	  		
 	  		</c:when>
 	  		<c:otherwise>
-	  			<li><a href="?page=${i }">${i }</a></li>	  		
+	  			<li><a href="?page=${i }&category=${param.category}">${i }</a></li>	  		
 	  		</c:otherwise>
 	  	</c:choose>
 	  </c:forEach>
@@ -148,7 +154,7 @@ function sideNav(category) {
 	  		<li class="disabled"><a href="#"><i class="fa fa-angle-right"></i></a></li>	  	
 	  	</c:when>
 	  	<c:otherwise>
-	  		<li><a href="?page=${pagination.currPage + 1 }"><i class="fa fa-angle-right"></i></a></li>	 	  	
+	  		<li><a href="?page=${pagination.currPage + 1 }&category=${param.category}"><i class="fa fa-angle-right"></i></a></li>	 	  	
 	  	</c:otherwise>
 	  </c:choose>
 	  <!-- 10페이지 이후 -->
@@ -157,7 +163,7 @@ function sideNav(category) {
 	  		<li class="disabled"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>	  	
 	  	</c:when>
 	  	<c:otherwise>
-	  		<li><a href="?page=${pagination.currPage + pagination.pageLimit }"><i class="fa fa-angle-double-right"></i></a></li>	 	  	
+	  		<li><a href="?page=${pagination.currPage + pagination.pageLimit }&category=${param.category}"><i class="fa fa-angle-double-right"></i></a></li>	 	  	
 	  	</c:otherwise>
 	  </c:choose>
 	</ul>
