@@ -47,8 +47,8 @@ public class BookController {
 		query.setStartListNum(pagination.getStartArticle());
 		query.setListLimit(pagination.getArticleLimit());
 		
-		if (query.getQueryType() == null) {
-			query.setQueryType("clap");
+		if (query.getDirectionType() == null) {
+			query.setDirectionType("clap");
 			query.setDirection("DESC");
 		}
 

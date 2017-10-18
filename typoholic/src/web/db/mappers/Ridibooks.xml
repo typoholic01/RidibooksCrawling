@@ -10,14 +10,19 @@
 		FROM ridibooks
 	</select>
 	
-	<!-- getList with PL/SQL -->
+	<!-- getList with Dynamic SQL -->
 	<select id="getRidibookList" resultType="Ridibook" parameterType="QueryBook">
 		SELECT category, link, cover, title, author, star * starredPerson "clap"
 		FROM ridibooks
+		WHERE 1 = 1
 		<if test="category != null and category != ''">
-		WHERE category = #{category}
+		AND category = #{category}
 		</if>
-		ORDER BY ${queryType} ${direction}
+		<if test="queryType != null and queryType != ''">
+			<bind name="query" value="'%'+query+'%'"/>	
+		AND ${queryType} LIKE #{query}
+		</if>
+		ORDER BY ${directionType} ${direction}
 		LIMIT #{startListNum}, #{ListLimit}
 	</select>
 	

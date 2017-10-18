@@ -9,6 +9,9 @@
 }
 </style>
 <!-- AJAX -->
+<script type="text/javascript" src='${pageContext.request.contextPath }/resources/js/ajax/bookList.js' ></script>
+
+
 <script type="text/javascript">
 function sortTable(category, column, scending) {	
 	//init
@@ -22,33 +25,8 @@ function sortTable(category, column, scending) {
 		$("#direction").val("desc");
 	}
 	
-	$.ajax({
-		type: 'GET',
-		url: './book/json/',
-		data: {
-			"category" : category,
-			"queryType" : column,
-			"direction" : direction
-		},		
-		async: true, 
-		success: function(data) {			
-			$.each(data, function(index, item) {
- 				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(1) > img').attr('src',data[index].cover);
- 				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(2)').text(data[index].category);
- 				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(3)').text(data[index].clap);
- 				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(4) > a').attr('href','https://ridibooks.com'+data[index].link);
- 				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(4) > a').text(data[index].title);
- 				$('tbody > tr:nth-child('+(index+1)+') > td:nth-child(5)').text(data[index].author);
-			});
-			
-			//방향전환
-			if (direction == "desc") {
-				$("#direction").val("asc");				
-			} else {
-				$("#direction").val("desc");							
-			}
-		}
-	});
+	//Ajax 처리
+	getBookList(category, column, direction);
 	
 	//후처리
 	if (category != '') {
@@ -56,6 +34,13 @@ function sortTable(category, column, scending) {
 		$('#sortTable > thead > tr > th:nth-child(3)').attr('onclick','sortTable(\''+category+'\', \'clap\', true)');
 		$('#sortTable > thead > tr > th:nth-child(4)').attr('onclick','sortTable(\''+category+'\', \'title\', true)');
 		$('#sortTable > thead > tr > th:nth-child(5)').attr('onclick','sortTable(\''+category+'\', \'author\', true)');
+	}
+	
+	//방향전환
+	if (direction == "desc") {
+		$("#direction").val("asc");				
+	} else {
+		$("#direction").val("desc");							
 	}
 
 	//셀렉터
@@ -106,7 +91,7 @@ function sideNav(category) {
 				<td>${ridibook.category }</td>
 				<td>${ridibook.clap }</td>
 				<td><a href="https://ridibooks.com${ridibook.link }">${ridibook.title }</a></td>
-				<td>${ridibook.author }</td>
+				<td><a href="./book?category=${param.category }&queryType=author&query=${ridibook.author}">${ridibook.author }</a></td>
 			</tr>
 			</c:forEach>
 		</tbody>
