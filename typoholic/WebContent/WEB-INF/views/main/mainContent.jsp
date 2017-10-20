@@ -2,6 +2,22 @@
     pageEncoding="UTF-8"%>    
     <% request.setCharacterEncoding("UTF-8"); %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- CSS -->
+<style>
+.ratio {
+    width: 100%;
+    padding-top: 122%; /* 9:11 Aspect Ratio */
+    position: relative;
+}
+.ratio-item {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+</style>
 <!-- AJAX -->
 <script type="text/javascript" src='${pageContext.request.contextPath }/resources/js/ajax/bookList.js' ></script>
 
@@ -27,7 +43,7 @@ function getCarouselList() {
 				$('#myCarousel div.carousel-inner').append(setBookHtml(data[index]));
 					
 				if (index == 0) {
-					$('#myCarousel div.carousel-inner div.item').attr('class','item active');
+					$('#myCarousel div.carousel-inner div.item').attr('class','item ratio active');
 				} else if (index == 5) {
 					return false;
 				}
@@ -36,8 +52,8 @@ function getCarouselList() {
 	});	
 }
 function setBookHtml(book) {	
-	var html = '<div class="item">'
-			+'    <img class="col-sm-12" src="'+book.cover+'" alt="'+book.title+'" style="height: 340px;">'
+	var html = '<div class="item ratio">'
+			+'    <img class="col-sm-12 col-xs-12 ratio-item" src="'+book.cover+'" alt="'+book.title+'">'
 			+'    <div class="carousel-caption">'
 			+'      <h3>'+book.title+'</h3>'
 			+'      <p>'+book.author+'</p>'
