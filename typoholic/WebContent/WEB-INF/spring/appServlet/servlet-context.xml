@@ -16,6 +16,7 @@
 	<!-- 리소스 매핑 -->
 	<resources location="/WEB-INF/resources/js/" mapping="/resources/js/**"/>
 	<resources location="/WEB-INF/resources/css/" mapping="/resources/css/**"/>
+	<resources location="/WEB-INF/resources/img/" mapping="/resources/img/**"/>
 	
 	<!-- View Mapping -->
 <!-- 	<beans:bean id="viewResolver" 

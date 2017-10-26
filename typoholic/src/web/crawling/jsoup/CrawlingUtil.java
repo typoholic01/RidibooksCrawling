@@ -37,6 +37,7 @@ public class CrawlingUtil {
 
 			logger.info("setDocument");
 			
+			//특정 노드를 지정한다
 			elements = document.select(CSSSelect);			
 		} catch (IOException e) {
 			logger.error(e.getMessage());
@@ -61,7 +62,7 @@ public class CrawlingUtil {
 		return list;
 	}
 	
-	//받아온 문서를 이용해 img데이터를 추출한다
+	//받아온 문서를 이용해 img src데이터를 추출한다
 	public List<String> attrSrcCrawling(String CSSSelect) throws IOException {
 		List<String> list = new ArrayList<>();
 		
@@ -71,7 +72,8 @@ public class CrawlingUtil {
 		}
 		return list;
 	}
-	
+
+	//받아온 문서를 이용해 text데이터를 추출한다
 	public List<String> textCrawling(String CSSSelect) throws IOException {
 		List<String> list = new ArrayList<>();
 		
