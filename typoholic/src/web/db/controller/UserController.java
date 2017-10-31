@@ -8,8 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import web.db.service.UserService;
 import web.db.vo.User;
@@ -76,6 +78,23 @@ public class UserController {
 		session.setAttribute("login", login);
 		
 		return "userLoginSuccess.tiles";
+	}
+	//로그인 기능
+	
+	@RequestMapping(value= "/user/login",method=RequestMethod.PUT)
+	public @ResponseBody String loginPUT(User user, HttpServletRequest req) {
+		logger.info("진입");		
+		logger.info(user.toString());
+		
+		//init
+		User login;
+		HttpSession session;
+		
+		login = serv.getUser(user);
+		session = req.getSession();
+		session.setAttribute("login", login);
+		
+		return "test";
 	}
 	
 	/*************************************************
